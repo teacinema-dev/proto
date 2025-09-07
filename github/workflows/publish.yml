@@ -1,0 +1,32 @@
+name: Publish Proto Package
+
+on:
+    push:
+        branches:
+            - main
+        tags:
+            - 'v*.*.*'
+
+jobs:
+    build-and-publish:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  registry-url: https://registry.npmjs.org/
+
+            - name: Install deps
+              run: yarn install --frozen-lockfile
+
+            - name: Generate types & Build
+              run: yarn run prepare
+
+            - name: Publish
+              run: npm publish --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

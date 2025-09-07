@@ -1,0 +1,28 @@
+{
+	"name": "@teacinema-dev/proto",
+	"version": "1.0.0",
+	"description": "Protobuf definitions and generated TypeScript types for TeaCinema microservices",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"auth",
+		"movie"
+	],
+	"scripts": {
+		"clean": "rm -rf dist",
+		"generate": "ts-node ./scripts/generate.ts",
+		"prepare": "npm run generate && npm run build",
+		"publish:public": "npm publish --access public"
+	},
+	"devDependencies": {
+		"@grpc/grpc-js": "^1.13.4",
+		"@grpc/proto-loader": "^0.8.0",
+		"glob": "^11.0.3",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.4.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
