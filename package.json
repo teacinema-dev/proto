@@ -11,6 +11,8 @@
 	],
 	"scripts": {
 		"clean": "rm -rf dist",
+		"build": "tsc -p tsconfig.build.json"
+
 		"generate": "ts-node ./scripts/generate.ts",
 		"prepare": "npm run generate && npm run build",
 		"publish:public": "npm publish --access public"
