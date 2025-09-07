@@ -2,8 +2,8 @@
 	"name": "@teacinema-dev/proto",
 	"version": "1.0.0",
 	"description": "Protobuf definitions and generated TypeScript types for TeaCinema microservices",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"main": "generated/index.js",
+	"types": "generated/index.d.ts",
 	"files": [
 		"dist",
 		"auth",
