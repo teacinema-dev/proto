@@ -26,7 +26,6 @@ message PhoneVerifyCodeRequest {
 message PhoneVerifyCodeResponse {
   bool ok = 1;
   string accessToken = 2;
-  string refreshToken = 3;
 }
 
 message IntrospectRequest {
