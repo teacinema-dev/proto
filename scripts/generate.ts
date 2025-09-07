@@ -3,7 +3,7 @@ import { glob } from 'glob'
 import path from 'path'
 
 const protoDir = path.resolve(__dirname, '../src')
-const outDir = path.resolve(__dirname, '../dist')
+const outDir = path.resolve(__dirname, '../generated')
 
 const protoFiles = glob.sync(`${protoDir}/**/*.proto`)
 
