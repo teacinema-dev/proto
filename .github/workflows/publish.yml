@@ -20,11 +20,11 @@ jobs:
                   node-version: 20
                   registry-url: https://registry.npmjs.org/
 
-            - name: Install deps
-              run: yarn install --frozen-lockfile
+            # - name: Install deps
+            #   run: yarn install --frozen-lockfile
 
-            - name: Generate types & Build
-              run: yarn run prepare
+            # - name: Generate types & Build
+            #   run: yarn run prepare
 
             - name: Publish
               run: npm publish --access public

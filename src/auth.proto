@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package auth.v1;
+
+service AuthService {
+  rpc PhoneSendCode (PhoneSendCodeRequest) returns (PhoneSendCodeResponse);
+  rpc PhoneVerifyCode (PhoneVerifyCodeRequest) returns (PhoneVerifyCodeResponse);
+
+  rpc GetAuthUrl (GetAuthUrlRequest) returns (GetAuthUrlResponse);
+  rpc Callback (CallbackRequest) returns (CallbackResponse);
+
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+}
+
+message PhoneSendCodeRequest {
+  string phone = 1;
+}
+
+message PhoneSendCodeResponse {
+  bool ok = 1;
+}
+
+message PhoneVerifyCodeRequest {
+  string phone = 1;
+  string code = 2;
+}
+
+message PhoneVerifyCodeResponse {
+  bool ok = 1;
+  string token = 2;
+}
+
+message GetAuthUrlRequest {}
+
+message GetAuthUrlResponse {
+  string url = 2;
+}
+
+message CallbackRequest {
+  map<string, string> query = 1;
+  string data = 2;              
+}
+
+message CallbackResponse {
+  string data = 2;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserResponse {
+  string id = 1;
+  string phone = 2;
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package users.v1;
+
+service UsersService {
+  rpc GetMe (GetMeRequest) returns (GetMeResponse);
+}
+
+message GetMeRequest {
+  string id = 1;
+}
+
+message GetMeResponse {
+  bool ok = 1;
+  User user = 2;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string phone = 3;
+}
