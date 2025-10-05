@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package theater;
+package theater.v1;
 
 service TheaterService {
   rpc CreateTheater (CreateTheaterRequest) returns (TheaterResponse);
