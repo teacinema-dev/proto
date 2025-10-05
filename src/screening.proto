@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package screening.v1;
+
+service ScreeningService {
+  rpc CreateScreening (CreateScreeningRequest) returns (ScreeningResponse);
+  rpc GetScreening (GetScreeningRequest) returns (ScreeningResponse);
+
+  rpc GetScreeningsToday (GetScreeningsTodayRequest) returns (ListScreeningsResponse);
+
+  rpc GetScreeningsByMovie (GetScreeningsByMovieRequest) returns (ListScreeningsResponse);
+
+  rpc GetScreeningsByHall (GetScreeningsByHallRequest) returns (ListScreeningsResponse);
+}
+
+message CreateScreeningRequest {
+  string movieId = 1;
+  string hallId = 2;
+  string startAt = 3; 
+  string endAt = 4; 
+  int32 price = 5;
+}
+
+message GetScreeningRequest {
+  string id = 1;
+}
+
+message GetScreeningsTodayRequest {
+  string theaterId = 1;
+  string hallId = 2;
+  string date = 3; 
+}
+
+message GetScreeningsByMovieRequest {
+  string movieId = 1;
+  string date = 2;
+}
+
+message GetScreeningsByHallRequest {
+  string hallId = 1;
+  string date = 2;
+}
+
+message GetScreeningSeatMapRequest {
+  string screeningId = 1;
+}
+
+message ScreeningResponse {
+  bool ok = 1;
+  Screening screening = 2;
+}
+
+message ListScreeningsResponse {
+  bool ok = 1;
+  repeated Screening screenings = 2;
+}
+
+message Screening {
+  string id = 1;
+  string movieId = 2;
+  string hallId = 3;
+  string startAt = 4;
+  string endAt = 5;
+  int32 price = 6;
+}
