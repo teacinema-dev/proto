@@ -3,7 +3,7 @@ syntax = "proto3";
 package theater.v1;
 
 service TheaterService {
-  rpc GetAll (Empty) returns (GetAllTheatersResponse);
+  rpc GetAllTheaters (Empty) returns (GetAllTheatersResponse);
   rpc GetTheater (GetTheaterRequest) returns (TheaterResponse);
   rpc CreateTheater (CreateTheaterRequest) returns (TheaterResponse);
 }
