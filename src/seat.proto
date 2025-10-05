@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package seat.v1;
+
+service TheaterService {
+  rpc GetSeat (GetSeatRequest) returns (SeatResponse);
+  rpc ListSeatsByHall (GetSeatsRequest) returns (ListSeatsResponse);
+}
+
+message GetSeatRequest {
+  string id = 1;
+}
+
+message GetSeatsRequest {
+  string hallId = 1;
+}
+
+message SeatResponse {
+  bool ok = 1;
+  Seat seat = 2;
+}
+
+message ListSeatsResponse {
+  bool ok = 1;
+  repeated Seat seats = 2;
+}
+
+message Seat {
+  string id = 1;
+  int32 row = 2;
+  int32 number = 3;
+  string label = 4;
+  string type = 5;
+  string hallId = 6;
+}
