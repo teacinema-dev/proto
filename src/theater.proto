@@ -3,11 +3,18 @@ syntax = "proto3";
 package theater.v1;
 
 service TheaterService {
-  rpc CreateTheater (CreateTheaterRequest) returns (TheaterResponse);
+  rpc GetAll (Empty) returns (GetAllTheatersResponse);
   rpc GetTheater (GetTheaterRequest) returns (TheaterResponse);
-  rpc ListTheaters (Empty) returns (ListTheatersResponse);
+  rpc CreateTheater (CreateTheaterRequest) returns (TheaterResponse);
+}
 
-  
+message GetAllTheatersResponse {
+  bool ok = 1;
+  repeated Theater theaters = 2;
+}
+
+message GetTheaterRequest {
+  string id = 1;
 }
 
 message CreateTheaterRequest {
@@ -15,18 +22,9 @@ message CreateTheaterRequest {
   string address = 2;
 }
 
-message GetTheaterRequest {
-  string id = 1;
-}
-
 message TheaterResponse {
   bool ok = 1;
   Theater theater = 2;
-}
-
-message ListTheatersResponse {
-  bool ok = 1;
-  repeated Theater theaters = 2;
 }
 
 message Theater {
