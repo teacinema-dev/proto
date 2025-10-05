@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package theater.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service TheaterService {
+  rpc CreateTheater(CreateTheaterRequest) returns (TheaterResponse);
+  rpc GetTheater(GetTheaterRequest) returns (TheaterResponse);
+  rpc ListTheaters(google.protobuf.Empty) returns (ListTheatersResponse);
+
+  rpc CreateHall(CreateHallRequest) returns (HallResponse);
+  rpc GetHall(GetHallRequest) returns (HallWithSeatsResponse);
+  rpc ListHallsByTheater(GetHallsRequest) returns (ListHallsResponse);
+
+  rpc ListSeatsByHall(GetSeatsRequest) returns (ListSeatsResponse);
+  rpc GetSeat(GetSeatRequest) returns (SeatResponse);
+}
+
+message CreateTheaterRequest {
+  string name = 1;
+  string address = 2;
+}
+
+message GetTheaterRequest {}
+
+message ListTheatersResponse {
+  repeated TheaterResponse theaters = 1;
+}
+
+message CreateHallRequest {
+  string name = 2;
+  int32 rows = 3;
+  int32 columns = 4;
+}
+
+message HallResponse {
+  string id = 1;
+  string name = 2;
+  int32 rows = 3;
+  int32 columns = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message GetHallRequest {
+  string id = 1;
+}
+
+message GetHallsRequest {
+  string theaterId = 1;
+}
+
+message ListHallsResponse {
+  repeated HallResponse halls = 1;
+}
+
+message SeatResponse {
+  string id = 1;
+  string hallId = 2;
+  int32 row = 3;
+  int32 number = 4;
+  string label = 5;
+  string type = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message GetSeatsRequest {
+  string hallId = 1;
+}
+
+message ListSeatsResponse {
+  repeated SeatResponse seats = 1;
+}
+
+message HallWithSeatsResponse {
+  HallResponse hall = 1;
+  repeated SeatResponse seats = 2;
+}
+
+message GetSeatRequest {
+  string seatId = 1;
+}
+
+message TheaterResponse {
+  string id = 1;
+  string name = 2;
+  string address = 3;
+  string city = 4;
+  string phone = 5;
+  string metadata_json = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
