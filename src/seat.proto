@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package seat.v1;
 
-service TheaterService {
+service SeatService {
   rpc GetSeat (GetSeatRequest) returns (SeatResponse);
   rpc ListSeatsByHall (GetSeatsRequest) returns (ListSeatsResponse);
 }
