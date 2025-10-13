@@ -8,7 +8,7 @@ service ScreeningService {
 
   rpc GetScreeningsToday (GetScreeningsTodayRequest) returns (ListScreeningsResponse);
 
-  rpc GetScreeningsByMovie (GetScreeningsByMovieRequest) returns (ListScreeningsResponse);
+  rpc GetScreeningsByMovie (GetScreeningsByMovieRequest) returns (GroupedScreeningsResponse);
 
   rpc GetScreeningsByHall (GetScreeningsByHallRequest) returns (ListScreeningsResponse);
 }
@@ -55,6 +55,11 @@ message ListScreeningsResponse {
   repeated Screening screenings = 2;
 }
 
+message GroupedScreeningsResponse {
+  bool ok = 1;
+  repeated DateGroup dates = 2;
+}
+
 message Screening {
   string id = 1;
   string hallId = 2;
@@ -68,4 +73,22 @@ message MovieShort {
   string id = 1;
   string title = 2;
   string slug = 3;
+}
+
+message DateGroup {
+  string date = 1;
+  repeated TheaterGroup theaters = 2;
+}
+
+message TheaterGroup {
+  string theater = 1;
+  repeated ScreeningInfo screenings = 2;
+}
+
+message ScreeningInfo {
+  string id = 1;
+  string time = 2;
+  string hall = 3;
+  string format = 4;
+  string price = 5;
 }
