@@ -61,7 +61,7 @@ message Screening {
   string startAt = 3;
   string endAt = 4;
   int32 price = 5;
-  repeated MovieShort movie = 6;
+  MovieShort movie = 6;
 }
 
 message MovieShort {
