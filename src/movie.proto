@@ -5,6 +5,7 @@ package movie.v1;
 service MovieService {
   rpc GetAll (GetAllMoviesRequest) returns (GetAllMoviesResponse);
   rpc GetPopular (GetPopularMoviesRequest) returns (GetPopularMoviesResponse);
+  rpc GetById (GetByIdRequest) returns (GetByIdResponse);
   rpc GetBySlug (GetBySlugRequest) returns (GetBySlugResponse);
 }
 
@@ -22,6 +23,15 @@ message GetPopularMoviesRequest {}
 message GetPopularMoviesResponse {
   bool ok = 1;
   repeated Movie movies = 2;
+}
+
+message GetByIdRequest {
+  string id = 1;
+}
+
+message GetByIdResponse {
+  bool ok = 1;
+  MovieDetails movie = 2;
 }
 
 message GetBySlugRequest {
