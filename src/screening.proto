@@ -57,9 +57,15 @@ message ListScreeningsResponse {
 
 message Screening {
   string id = 1;
-  string movieId = 2;
-  string hallId = 3;
-  string startAt = 4;
-  string endAt = 5;
-  int32 price = 6;
+  string hallId = 2;
+  string startAt = 3;
+  string endAt = 4;
+  int32 price = 5;
+  repeated MovieShort movie = 6;
+}
+
+message MovieShort {
+  string id = 1;
+  string title = 2;
+  string slug = 3;
 }
