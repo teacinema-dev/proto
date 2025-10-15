@@ -7,11 +7,10 @@ service PaymentService {
 }
 
 message CreatePaymentRequest {
-  string userId = 1;
-  string bookingId = 2;
   int32 amount = 3;    
-  string description = 4;
-  bool savePaymentMethod = 5;
+  bool savePaymentMethod = 4;
+  string bookingId = 2;
+  string userId = 1;
 }
 
 message CreatePaymentResponse {

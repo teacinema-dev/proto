@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package booking.v1;
 
 service BookingService {
