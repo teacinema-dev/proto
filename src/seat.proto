@@ -30,7 +30,8 @@ message Seat {
   int32 row = 2;
   int32 number = 3;
   int32 price = 4;
-  string label = 5;
-  string type = 6;
-  string hallId = 7;
+  string status = 5;
+  string label = 6;
+  string type = 7;
+  string hallId = 8;
 }
