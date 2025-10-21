@@ -5,7 +5,6 @@ package booking.v1;
 service BookingService {
   rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse);
   rpc ListReservedSeats (ListReservedSeatsRequest) returns (ListReservedSeatsResponse);
-
 }
 
 message SeatInput {
