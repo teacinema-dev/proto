@@ -8,6 +8,7 @@ service AuthService {
 
   rpc GetAuthUrl (GetAuthUrlRequest) returns (GetAuthUrlResponse);
   rpc Callback (CallbackRequest) returns (CallbackResponse);
+  rpc TelegramRegister (TelegramRegisterRequest) returns (TelegramRegisterResponse);
 
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
 }
@@ -42,6 +43,17 @@ message CallbackRequest {
 
 message CallbackResponse {
   string url = 1;
+}
+
+message TelegramRegisterRequest {
+  string telegram_id = 1;
+  string phone = 2;
+  string username = 3;
+}
+
+message TelegramRegisterResponse {
+  bool ok = 1;
+  string token = 2;
 }
 
 message GetUserRequest {

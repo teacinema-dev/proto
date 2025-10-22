@@ -37,7 +37,6 @@ export interface GetAuthUrlResponse {
 
 export interface CallbackRequest {
   query: { [key: string]: string };
-  data: string;
 }
 
 export interface CallbackRequest_QueryEntry {
@@ -47,6 +46,17 @@ export interface CallbackRequest_QueryEntry {
 
 export interface CallbackResponse {
   url: string;
+}
+
+export interface TelegramRegisterRequest {
+  telegramId: string;
+  phone: string;
+  username: string;
+}
+
+export interface TelegramRegisterResponse {
+  ok: boolean;
+  token: string;
 }
 
 export interface GetUserRequest {
@@ -69,6 +79,8 @@ export interface AuthServiceClient {
 
   callback(request: CallbackRequest): Observable<CallbackResponse>;
 
+  telegramRegister(request: TelegramRegisterRequest): Observable<TelegramRegisterResponse>;
+
   getUser(request: GetUserRequest): Observable<GetUserResponse>;
 }
 
@@ -87,12 +99,23 @@ export interface AuthServiceController {
 
   callback(request: CallbackRequest): Promise<CallbackResponse> | Observable<CallbackResponse> | CallbackResponse;
 
+  telegramRegister(
+    request: TelegramRegisterRequest,
+  ): Promise<TelegramRegisterResponse> | Observable<TelegramRegisterResponse> | TelegramRegisterResponse;
+
   getUser(request: GetUserRequest): Promise<GetUserResponse> | Observable<GetUserResponse> | GetUserResponse;
 }
 
 export function AuthServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["phoneSendCode", "phoneVerifyCode", "getAuthUrl", "callback", "getUser"];
+    const grpcMethods: string[] = [
+      "phoneSendCode",
+      "phoneVerifyCode",
+      "getAuthUrl",
+      "callback",
+      "telegramRegister",
+      "getUser",
+    ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("AuthService", method)(constructor.prototype[method], method, descriptor);
