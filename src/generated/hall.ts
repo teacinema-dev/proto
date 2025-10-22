@@ -5,122 +5,96 @@
 // source: hall.proto
 
 /* eslint-disable */
-import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices'
-import { Observable } from 'rxjs'
+import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { Observable } from "rxjs";
 
-export const protobufPackage = 'hall.v1'
+export const protobufPackage = "hall.v1";
 
 export interface CreateHallRequest {
-	theaterId: string
-	name: string
-	rows: number
-	columns: number
-	config: string
+  theaterId: string;
+  name: string;
+  rows: number;
+  columns: number;
+  config: string;
 }
 
 export interface GetHallRequest {
-	id: string
+  id: string;
 }
 
 export interface GetHallsRequest {
-	theaterId: string
+  theaterId: string;
 }
 
 export interface HallResponse {
-	ok: boolean
-	hall: Hall | undefined
+  ok: boolean;
+  hall: Hall | undefined;
 }
 
 export interface ListHallsResponse {
-	ok: boolean
-	halls: Hall[]
+  ok: boolean;
+  halls: Hall[];
 }
 
 export interface HallWithSeatsResponse {
-	ok: boolean
-	hall: Hall | undefined
-	seats: Seat[]
+  ok: boolean;
+  hall: Hall | undefined;
+  seats: Seat[];
 }
 
 export interface Hall {
-	id: string
-	name: string
-	rows: number
-	columns: number
-	config: string
-	theaterId: string
+  id: string;
+  name: string;
+  rows: number;
+  columns: number;
+  config: string;
+  theaterId: string;
 }
 
 export interface Seat {
-	id: string
-	row: number
-	number: number
-	label: string
-	type: string
-	hallId: string
+  id: string;
+  row: number;
+  number: number;
+  label: string;
+  type: string;
+  hallId: string;
 }
 
-export const HALL_V1_PACKAGE_NAME = 'hall.v1'
+export const HALL_V1_PACKAGE_NAME = "hall.v1";
 
 export interface HallServiceClient {
-	createHall(request: CreateHallRequest): Observable<HallResponse>
+  createHall(request: CreateHallRequest): Observable<HallResponse>;
 
-	getHall(request: GetHallRequest): Observable<HallWithSeatsResponse>
+  getHall(request: GetHallRequest): Observable<HallWithSeatsResponse>;
 
-	listHallsByTheater(request: GetHallsRequest): Observable<ListHallsResponse>
+  listHallsByTheater(request: GetHallsRequest): Observable<ListHallsResponse>;
 }
 
 export interface HallServiceController {
-	createHall(
-		request: CreateHallRequest
-	): Promise<HallResponse> | Observable<HallResponse> | HallResponse
+  createHall(request: CreateHallRequest): Promise<HallResponse> | Observable<HallResponse> | HallResponse;
 
-	getHall(
-		request: GetHallRequest
-	):
-		| Promise<HallWithSeatsResponse>
-		| Observable<HallWithSeatsResponse>
-		| HallWithSeatsResponse
+  getHall(
+    request: GetHallRequest,
+  ): Promise<HallWithSeatsResponse> | Observable<HallWithSeatsResponse> | HallWithSeatsResponse;
 
-	listHallsByTheater(
-		request: GetHallsRequest
-	):
-		| Promise<ListHallsResponse>
-		| Observable<ListHallsResponse>
-		| ListHallsResponse
+  listHallsByTheater(
+    request: GetHallsRequest,
+  ): Promise<ListHallsResponse> | Observable<ListHallsResponse> | ListHallsResponse;
 }
 
 export function HallServiceControllerMethods() {
-	return function (constructor: Function) {
-		const grpcMethods: string[] = [
-			'createHall',
-			'getHall',
-			'listHallsByTheater',
-		]
-		for (const method of grpcMethods) {
-			const descriptor: any = Reflect.getOwnPropertyDescriptor(
-				constructor.prototype,
-				method
-			)
-			GrpcMethod('HallService', method)(
-				constructor.prototype[method],
-				method,
-				descriptor
-			)
-		}
-		const grpcStreamMethods: string[] = []
-		for (const method of grpcStreamMethods) {
-			const descriptor: any = Reflect.getOwnPropertyDescriptor(
-				constructor.prototype,
-				method
-			)
-			GrpcStreamMethod('HallService', method)(
-				constructor.prototype[method],
-				method,
-				descriptor
-			)
-		}
-	}
+  return function (constructor: Function) {
+    const grpcMethods: string[] = ["createHall", "getHall", "listHallsByTheater"];
+    for (const method of grpcMethods) {
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcMethod("HallService", method)(constructor.prototype[method], method, descriptor);
+    }
+    const grpcStreamMethods: string[] = [];
+    for (const method of grpcStreamMethods) {
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcStreamMethod("HallService", method)(constructor.prototype[method], method, descriptor);
+    }
+  };
 }
 
-export const HALL_SERVICE_NAME = 'HallService'
+export const HALL_SERVICE_NAME = "HallService";
