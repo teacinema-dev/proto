@@ -5,104 +5,143 @@
 // source: auth.proto
 
 /* eslint-disable */
-import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
-import { Observable } from "rxjs";
+import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices'
+import { Observable } from 'rxjs'
 
-export const protobufPackage = "auth.v1";
+export const protobufPackage = 'auth.v1'
 
 export interface PhoneSendCodeRequest {
-  phone: string;
+	phone: string
 }
 
 export interface PhoneSendCodeResponse {
-  ok: boolean;
+	ok: boolean
 }
 
 export interface PhoneVerifyCodeRequest {
-  phone: string;
-  code: string;
+	phone: string
+	code: string
 }
 
 export interface PhoneVerifyCodeResponse {
-  ok: boolean;
-  token: string;
+	ok: boolean
+	token: string
 }
 
-export interface GetAuthUrlRequest {
-}
+export interface GetAuthUrlRequest {}
 
 export interface GetAuthUrlResponse {
-  url: string;
+	url: string
 }
 
 export interface CallbackRequest {
-  query: { [key: string]: string };
-  data: string;
+	query: { [key: string]: string }
+	data: string
 }
 
 export interface CallbackRequest_QueryEntry {
-  key: string;
-  value: string;
+	key: string
+	value: string
 }
 
 export interface CallbackResponse {
-  data: string;
+	data: string
 }
 
 export interface GetUserRequest {
-  id: string;
+	id: string
 }
 
 export interface GetUserResponse {
-  id: string;
-  phone: string;
+	id: string
+	phone: string
 }
 
-export const AUTH_V1_PACKAGE_NAME = "auth.v1";
+export const AUTH_V1_PACKAGE_NAME = 'auth.v1'
 
 export interface AuthServiceClient {
-  phoneSendCode(request: PhoneSendCodeRequest): Observable<PhoneSendCodeResponse>;
+	phoneSendCode(
+		request: PhoneSendCodeRequest
+	): Observable<PhoneSendCodeResponse>
 
-  phoneVerifyCode(request: PhoneVerifyCodeRequest): Observable<PhoneVerifyCodeResponse>;
+	phoneVerifyCode(
+		request: PhoneVerifyCodeRequest
+	): Observable<PhoneVerifyCodeResponse>
 
-  getAuthUrl(request: GetAuthUrlRequest): Observable<GetAuthUrlResponse>;
+	getAuthUrl(request: GetAuthUrlRequest): Observable<GetAuthUrlResponse>
 
-  callback(request: CallbackRequest): Observable<CallbackResponse>;
+	callback(request: CallbackRequest): Observable<CallbackResponse>
 
-  getUser(request: GetUserRequest): Observable<GetUserResponse>;
+	getUser(request: GetUserRequest): Observable<GetUserResponse>
 }
 
 export interface AuthServiceController {
-  phoneSendCode(
-    request: PhoneSendCodeRequest,
-  ): Promise<PhoneSendCodeResponse> | Observable<PhoneSendCodeResponse> | PhoneSendCodeResponse;
+	phoneSendCode(
+		request: PhoneSendCodeRequest
+	):
+		| Promise<PhoneSendCodeResponse>
+		| Observable<PhoneSendCodeResponse>
+		| PhoneSendCodeResponse
 
-  phoneVerifyCode(
-    request: PhoneVerifyCodeRequest,
-  ): Promise<PhoneVerifyCodeResponse> | Observable<PhoneVerifyCodeResponse> | PhoneVerifyCodeResponse;
+	phoneVerifyCode(
+		request: PhoneVerifyCodeRequest
+	):
+		| Promise<PhoneVerifyCodeResponse>
+		| Observable<PhoneVerifyCodeResponse>
+		| PhoneVerifyCodeResponse
 
-  getAuthUrl(
-    request: GetAuthUrlRequest,
-  ): Promise<GetAuthUrlResponse> | Observable<GetAuthUrlResponse> | GetAuthUrlResponse;
+	getAuthUrl(
+		request: GetAuthUrlRequest
+	):
+		| Promise<GetAuthUrlResponse>
+		| Observable<GetAuthUrlResponse>
+		| GetAuthUrlResponse
 
-  callback(request: CallbackRequest): Promise<CallbackResponse> | Observable<CallbackResponse> | CallbackResponse;
+	callback(
+		request: CallbackRequest
+	):
+		| Promise<CallbackResponse>
+		| Observable<CallbackResponse>
+		| CallbackResponse
 
-  getUser(request: GetUserRequest): Promise<GetUserResponse> | Observable<GetUserResponse> | GetUserResponse;
+	getUser(
+		request: GetUserRequest
+	): Promise<GetUserResponse> | Observable<GetUserResponse> | GetUserResponse
 }
 
 export function AuthServiceControllerMethods() {
-  return function (constructor: Function) {
-    const grpcMethods: string[] = ["phoneSendCode", "phoneVerifyCode", "getAuthUrl", "callback", "getUser"];
-    for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("AuthService", method)(constructor.prototype[method], method, descriptor);
-    }
-    const grpcStreamMethods: string[] = [];
-    for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("AuthService", method)(constructor.prototype[method], method, descriptor);
-    }
-  };
+	return function (constructor: Function) {
+		const grpcMethods: string[] = [
+			'phoneSendCode',
+			'phoneVerifyCode',
+			'getAuthUrl',
+			'callback',
+			'getUser',
+		]
+		for (const method of grpcMethods) {
+			const descriptor: any = Reflect.getOwnPropertyDescriptor(
+				constructor.prototype,
+				method
+			)
+			GrpcMethod('AuthService', method)(
+				constructor.prototype[method],
+				method,
+				descriptor
+			)
+		}
+		const grpcStreamMethods: string[] = []
+		for (const method of grpcStreamMethods) {
+			const descriptor: any = Reflect.getOwnPropertyDescriptor(
+				constructor.prototype,
+				method
+			)
+			GrpcStreamMethod('AuthService', method)(
+				constructor.prototype[method],
+				method,
+				descriptor
+			)
+		}
+	}
 }
 
-export const AUTH_SERVICE_NAME = "AuthService";
+export const AUTH_SERVICE_NAME = 'AuthService'

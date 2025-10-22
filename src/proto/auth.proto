@@ -33,7 +33,7 @@ message PhoneVerifyCodeResponse {
 message GetAuthUrlRequest {}
 
 message GetAuthUrlResponse {
-  string url = 2;
+  string url = 1;
 }
 
 message CallbackRequest {
@@ -42,7 +42,7 @@ message CallbackRequest {
 }
 
 message CallbackResponse {
-  string data = 2;
+  string url = 1;
 }
 
 message GetUserRequest {
