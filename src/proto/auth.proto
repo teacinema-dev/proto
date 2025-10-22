@@ -37,8 +37,7 @@ message GetAuthUrlResponse {
 }
 
 message CallbackRequest {
-  map<string, string> query = 1;
-  string data = 2;              
+  map<string, string> query = 1;      
 }
 
 message CallbackResponse {
