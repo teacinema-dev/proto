@@ -3,8 +3,8 @@ syntax = "proto3";
 package auth.v1;
 
 service AuthService {
-  rpc PhoneSendCode (PhoneSendCodeRequest) returns (PhoneSendCodeResponse);
-  rpc PhoneVerifyCode (PhoneVerifyCodeRequest) returns (PhoneVerifyCodeResponse);
+  rpc SendOtp (SendOtpRequest) returns (SendOtpResponse);
+  rpc VerifyOtp (VerifyOtpRequest) returns (VerifyOtpResponse);
 
   rpc GetAuthUrl (GetAuthUrlRequest) returns (GetAuthUrlResponse);
   rpc Callback (CallbackRequest) returns (CallbackResponse);
@@ -13,22 +13,23 @@ service AuthService {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
 }
 
-message PhoneSendCodeRequest {
-  string phone = 1;
+message SendOtpRequest {
+  string identifier = 1;  
+  string type = 2;
 }
 
-message PhoneSendCodeResponse {
+message SendOtpResponse {
   bool ok = 1;
 }
 
-message PhoneVerifyCodeRequest {
-  string phone = 1;
+message VerifyOtpRequest {
+  string identifier = 1;
   string code = 2;
+  string type = 3;  
 }
 
-message PhoneVerifyCodeResponse {
-  bool ok = 1;
-  string token = 2;
+message VerifyOtpResponse {
+  string token = 1;
 }
 
 message GetAuthUrlRequest {}
