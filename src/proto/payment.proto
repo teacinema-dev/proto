@@ -4,6 +4,8 @@ package payment.v1;
 
 service PaymentService {
   rpc CreatePayment (CreatePaymentRequest) returns (CreatePaymentResponse);
+  rpc BindCard (BindCardRequest) returns (BindCardResponse);
+  rpc HandlePaymentEvent (PaymentEventRequest) returns (PaymentEventResponse);
 }
 
 message CreatePaymentRequest {
@@ -16,4 +18,26 @@ message CreatePaymentRequest {
 
 message CreatePaymentResponse {
   string url = 1;  
+}
+
+message BindCardRequest {
+  string userId = 1;
+}
+
+message BindCardResponse {
+  string url = 1;
+}
+
+message PaymentEventRequest {
+  string eventType = 1;
+  string paymentId = 2;
+  string userId = 3;
+  string paymentMethodId = 4;
+  string first6 = 5;
+  string last4 = 6;
+  string type = 7;
+}
+
+message PaymentEventResponse {
+  bool success = 1;
 }
