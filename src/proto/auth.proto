@@ -29,7 +29,17 @@ message VerifyOtpRequest {
 }
 
 message VerifyOtpResponse {
-  string token = 1;
+  string accessToken = 1;
+  string refreshToken = 2;
+}
+
+message RefreshRequest {
+  string refreshToken = 1;
+}
+
+message RefreshResponse {
+  string accessToken = 1;
+  string refreshToken = 2;
 }
 
 message GetAuthUrlRequest {}
