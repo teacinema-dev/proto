@@ -5,6 +5,7 @@ package auth.v1;
 service AuthService {
   rpc SendOtp (SendOtpRequest) returns (SendOtpResponse);
   rpc VerifyOtp (VerifyOtpRequest) returns (VerifyOtpResponse);
+  rpc Refresh (RefreshRequest) returns (RefreshResponse);
 
   rpc GetAuthUrl (GetAuthUrlRequest) returns (GetAuthUrlResponse);
   rpc Callback (CallbackRequest) returns (CallbackResponse);
@@ -63,8 +64,8 @@ message TelegramRegisterRequest {
 }
 
 message TelegramRegisterResponse {
-  bool ok = 1;
-  string token = 2;
+  string accessToken = 1;
+  string refreshToken = 2;
 }
 
 message GetUserRequest {
