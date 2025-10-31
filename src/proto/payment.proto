@@ -8,6 +8,7 @@ service PaymentService {
   rpc GetUserPaymentMethods (GetUserPaymentMethodsRequest) returns (GetUserPaymentMethodsResponse);
   rpc CreatePaymentMethod (CreatePaymentMethodRequest) returns (CreatePaymentMethodResponse);
   rpc VerifyPaymentMethod (VerifyPaymentMethodRequest) returns (VerifyPaymentMethodResponse);
+  rpc DeletePaymentMethod (DeletePaymentMethodRequest) returns (DeletePaymentMethodResponse);
 }
 
 message CreatePaymentRequest {
@@ -45,7 +46,16 @@ message VerifyPaymentMethodRequest {
 }
 
 message VerifyPaymentMethodResponse {
-  bool success = 1;
+  bool ok = 1;
+}
+
+message DeletePaymentMethodRequest {
+  string userId = 1;
+  string methodId = 2;
+}
+
+message DeletePaymentMethodResponse {
+  bool ok = 1;
 }
 
 message PaymentMethodItem {
