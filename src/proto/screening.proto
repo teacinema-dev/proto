@@ -5,23 +5,16 @@ package screening.v1;
 service ScreeningService {
   rpc CreateScreening (CreateScreeningRequest) returns (ScreeningResponse);
   rpc GetScreening (GetScreeningRequest) returns (ScreeningResponse);
-
-  rpc GetScreeningsToday (GetScreeningsTodayRequest) returns (ListScreeningsResponse);
-
+  rpc GetScreeningsByDate (GetScreeningsByDateRequest) returns (ListScreeningsResponse);
   rpc GetScreeningsByMovie (GetScreeningsByMovieRequest) returns (GroupedScreeningsResponse);
-
   rpc GetScreeningsByHall (GetScreeningsByHallRequest) returns (ListScreeningsResponse);
 }
-
-// ========================
-// REQUESTS
-// ========================
 
 message CreateScreeningRequest {
   string movieId = 1;
   string hallId = 2;
-  string startAt = 3; 
-  string endAt = 4; 
+  string startAt = 3;
+  string endAt = 4;
   int32 price = 5;
 }
 
@@ -29,10 +22,9 @@ message GetScreeningRequest {
   string id = 1;
 }
 
-message GetScreeningsTodayRequest {
-  string theaterId = 1;
-  string hallId = 2;
-  string date = 3; 
+message GetScreeningsByDateRequest {
+  string hallId = 1;
+  string date = 2;
 }
 
 message GetScreeningsByMovieRequest {
@@ -49,10 +41,6 @@ message GetScreeningSeatMapRequest {
   string screeningId = 1;
 }
 
-// ========================
-// RESPONSES
-// ========================
-
 message ScreeningResponse {
   bool ok = 1;
   Screening screening = 2;
@@ -63,15 +51,10 @@ message ListScreeningsResponse {
   repeated Screening screenings = 2;
 }
 
-// Новый тип ответа — сгруппированные по дате и кинотеатрам
 message GroupedScreeningsResponse {
   bool ok = 1;
   repeated DateGroup dates = 2;
 }
-
-// ========================
-// MODELS
-// ========================
 
 message Screening {
   string id = 1;
@@ -88,32 +71,23 @@ message MovieShort {
   string slug = 3;
 }
 
-// ===== Новые структуры для группировки =====
-
-// Сеансы сгруппированы по дате
 message DateGroup {
-  string date = 1; // YYYY-MM-DD
+  string date = 1;
   repeated TheaterGroup theaters = 2;
 }
 
-// Сеансы внутри одной даты сгруппированы по кинотеатрам
 message TheaterGroup {
-  Theater theater = 1; // теперь возвращаем весь объект театра
+  Theater theater = 1;
   repeated ScreeningInfo screenings = 2;
 }
 
-// Упрощённая информация о сеансе
 message ScreeningInfo {
   string id = 1;
-  string time = 2; // например "21:30"
+  string time = 2;
   string hall = 3;
   string format = 4;
-  repeated SeatType seats = 5; // массив типов мест и их цен
+  repeated SeatType seats = 5;
 }
-
-// ========================
-// Дополнительные модели
-// ========================
 
 message Theater {
   string id = 1;
@@ -123,5 +97,5 @@ message Theater {
 
 message SeatType {
   string type = 1;
-  int32 price = 2; 
+  int32 price = 2;
 }
