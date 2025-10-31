@@ -4,6 +4,8 @@ package payment.v1;
 
 service PaymentService {
   rpc CreatePayment (CreatePaymentRequest) returns (CreatePaymentResponse);
+  
+  rpc GetUserPaymentMethods (GetUserPaymentMethodsRequest) returns (GetUserPaymentMethodsResponse);
   rpc CreatePaymentMethod (CreatePaymentMethodRequest) returns (CreatePaymentMethodResponse);
   rpc VerifyPaymentMethod (VerifyPaymentMethodRequest) returns (VerifyPaymentMethodResponse);
 }
@@ -18,6 +20,14 @@ message CreatePaymentRequest {
 
 message CreatePaymentResponse {
   string url = 1;  
+}
+
+message GetUserPaymentMethodsRequest {
+  string userId = 1;
+}
+
+message GetUserPaymentMethodsResponse {
+  repeated PaymentMethodItem methods = 1;
 }
 
 message CreatePaymentMethodRequest {
@@ -36,4 +46,11 @@ message VerifyPaymentMethodRequest {
 
 message VerifyPaymentMethodResponse {
   bool success = 1;
+}
+
+message PaymentMethodItem {
+  string bank = 1;
+  string brand = 2;
+  string first6 = 3;
+  string last4 = 4;
 }
