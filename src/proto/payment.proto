@@ -4,7 +4,7 @@ package payment.v1;
 
 service PaymentService {
   rpc CreatePayment (CreatePaymentRequest) returns (CreatePaymentResponse);
-  rpc HandleWebhook (WebhookRequest) returns (WebhookResponse);
+  rpc HandleWebhook (HandleWebhookRequest) returns (HandleWebhookResponse);
   
   rpc GetUserPaymentMethods (GetUserPaymentMethodsRequest) returns (GetUserPaymentMethodsResponse);
   rpc CreatePaymentMethod (CreatePaymentMethodRequest) returns (CreatePaymentMethodResponse);
@@ -15,34 +15,34 @@ service PaymentService {
 message CreatePaymentRequest {
   int32 amount = 1;
   string description = 2;
-  bool savePaymentMethod = 3;
-  string bookingId = 4;
-  string paymentMethodId = 6;
-  string userId = 5;
+  bool save_payment_method = 3;
+  string booking_id = 4;
+  string user_id = 5;
+  string payment_method_id = 6;
 }
 
 message CreatePaymentResponse {
   string url = 1;  
 }
 
-message WebhookRequest {
+message HandleWebhookRequest {
   string event = 1;
-  string paymentId = 2;
-  string bookingId = 3;
-  string userId = 4;
-  bool savePaymentMethod = 5;
+  string payment_id = 2;
+  string booking_id = 3;
+  string user_id = 4;
+  bool save_payment_method = 5;
 
-  string providerMethodId = 6;
-  string cardFirst6 = 7;
-  string cardLast4 = 8;
+  string provider_method_id = 6;
+  string card_first6 = 7;
+  string card_last4 = 8;
 }
 
-message WebhookResponse {
+message HandleWebhookResponse {
   bool ok = 1;
 }
 
 message GetUserPaymentMethodsRequest {
-  string userId = 1;
+  string user_id = 1;
 }
 
 message GetUserPaymentMethodsResponse {
@@ -50,7 +50,7 @@ message GetUserPaymentMethodsResponse {
 }
 
 message CreatePaymentMethodRequest {
-  string userId = 1;
+  string user_id = 1;
 }
 
 message CreatePaymentMethodResponse {
@@ -59,8 +59,8 @@ message CreatePaymentMethodResponse {
 }
 
 message VerifyPaymentMethodRequest {
-  string userId = 1;
-  string methodId = 2;
+  string user_id = 1;
+  string method_id = 2;
 }
 
 message VerifyPaymentMethodResponse {
@@ -68,8 +68,8 @@ message VerifyPaymentMethodResponse {
 }
 
 message DeletePaymentMethodRequest {
-  string userId = 1;
-  string methodId = 2;
+  string user_id = 1;
+  string method_id = 2;
 }
 
 message DeletePaymentMethodResponse {
