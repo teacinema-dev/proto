@@ -13,6 +13,7 @@ message GetSeatRequest {
 
 message GetSeatsRequest {
   string hallId = 1;
+  string screeningId = 2;
 }
 
 message SeatResponse {
