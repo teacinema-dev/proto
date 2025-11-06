@@ -18,7 +18,7 @@ message CreatePaymentRequest {
   bool save_payment_method = 3;
   string booking_id = 4;
   string user_id = 5;
-  string payment_method_id = 6;
+  optional string payment_method_id = 6;
 }
 
 message CreatePaymentResponse {
@@ -31,7 +31,6 @@ message HandleWebhookRequest {
   string booking_id = 3;
   string user_id = 4;
   bool save_payment_method = 5;
-
   string provider_method_id = 6;
   string card_first6 = 7;
   string card_last4 = 8;
