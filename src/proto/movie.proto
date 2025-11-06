@@ -3,10 +3,10 @@ syntax = "proto3";
 package movie.v1;
 
 service MovieService {
-  rpc GetAll (GetAllMoviesRequest) returns (GetAllMoviesResponse);
-  rpc GetPopular (GetPopularMoviesRequest) returns (GetPopularMoviesResponse);
-  rpc GetById (GetByIdRequest) returns (GetByIdResponse);
-  rpc GetBySlug (GetBySlugRequest) returns (GetBySlugResponse);
+  rpc GetAllMovies (GetAllMoviesRequest) returns (GetAllMoviesResponse);
+  rpc GetPopularMovies (GetPopularMoviesRequest) returns (GetPopularMoviesResponse);
+  rpc GetMovieById (GetMovieByIdRequest) returns (GetMovieByIdResponse);
+  rpc GetMovieBySlug (GetMovieBySlugRequest) returns (GetMovieBySlugResponse);
 }
 
 message GetAllMoviesRequest { 
@@ -25,20 +25,20 @@ message GetPopularMoviesResponse {
   repeated Movie movies = 2;
 }
 
-message GetByIdRequest {
+message GetMovieByIdRequest {
   string id = 1;
 }
 
-message GetByIdResponse {
+message GetMovieByIdResponse {
   bool ok = 1;
   MovieDetails movie = 2;
 }
 
-message GetBySlugRequest {
+message GetMovieBySlugRequest {
   string slug = 1;
 }
 
-message GetBySlugResponse {
+message GetMovieBySlugResponse {
   bool ok = 1;
   MovieDetails movie = 2;
 }
