@@ -4,6 +4,8 @@ package booking.v1;
 
 service BookingService {
   rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse);
+  rpc ConfirmBooking (ConfirmBookingRequest) returns (ConfirmBookingResponse);
+
   rpc ListReservedSeats (ListReservedSeatsRequest) returns (ListReservedSeatsResponse);
 }
 
@@ -24,6 +26,15 @@ message CreateReservationResponse {
   repeated string ticketIds = 2;
   int64 expiresAt = 3;      
   int32 totalAmount = 4;      
+}
+
+message ConfirmBookingRequest {
+  string bookingId = 1;
+  string userId = 2;
+}
+
+message ConfirmBookingResponse {
+  bool ok = 1;
 }
 
 message ListReservedSeatsRequest {

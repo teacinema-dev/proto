@@ -4,6 +4,7 @@ package payment.v1;
 
 service PaymentService {
   rpc CreatePayment (CreatePaymentRequest) returns (CreatePaymentResponse);
+  rpc HandleWebhook (WebhookRequest) returns (WebhookResponse);
   
   rpc GetUserPaymentMethods (GetUserPaymentMethodsRequest) returns (GetUserPaymentMethodsResponse);
   rpc CreatePaymentMethod (CreatePaymentMethodRequest) returns (CreatePaymentMethodResponse);
@@ -21,6 +22,22 @@ message CreatePaymentRequest {
 
 message CreatePaymentResponse {
   string url = 1;  
+}
+
+message WebhookRequest {
+  string event = 1;
+  string paymentId = 2;
+  string bookingId = 3;
+  string userId = 4;
+  bool savePaymentMethod = 5;
+
+  string providerMethodId = 6;
+  string cardFirst6 = 7;
+  string cardLast4 = 8;
+}
+
+message WebhookResponse {
+  bool ok = 1;
 }
 
 message GetUserPaymentMethodsRequest {
