@@ -17,6 +17,7 @@ message CreatePaymentRequest {
   string description = 2;
   bool savePaymentMethod = 3;
   string bookingId = 4;
+  string paymentMethodId = 6;
   string userId = 5;
 }
 
