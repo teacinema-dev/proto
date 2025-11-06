@@ -49,9 +49,9 @@ message Movie {
   string slug = 3;
   string poster = 4;
   string banner = 5;
-  string ratingAge = 6;
+  string rating_age = 6;
   string trailer = 7;
-  string releaseDate = 8;
+  string release_date = 8;
 }
 
 message MovieDetails {
@@ -59,10 +59,11 @@ message MovieDetails {
   string title = 2;
   string slug = 3;
   string description = 4;
-  string banner = 5;
-  string trailer = 6;
-  string duration = 7;
-  string releaseDate = 8;
-  string ratingAge = 9;
-  string country = 10;
+  string poster = 5;
+  string banner = 6;
+  string trailer = 7;
+  string duration = 8;
+  string release_date = 9;
+  string rating_age = 10;
+  string country = 11;
 }
