@@ -3,7 +3,7 @@ syntax = "proto3";
 package screening.v1;
 
 service ScreeningService {
-  rpc CreateScreening (CreateScreeningRequest) returns (ScreeningResponse);
+  rpc CreateScreening (CreateScreeningRequest) returns (GetScreeningResponse);
   rpc GetScreening (GetScreeningRequest) returns (ScreeningResponse);
   rpc GetScreeningsByDate (GetScreeningsByDateRequest) returns (ListScreeningsResponse);
   rpc GetScreeningsByMovie (GetScreeningsByMovieRequest) returns (GroupedScreeningsResponse);
@@ -80,6 +80,7 @@ message Movie {
   string id = 1;
   string title = 2;
   string slug = 3;
+  string poster = 4;
 }
 
 message DateGroup {
