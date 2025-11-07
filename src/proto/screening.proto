@@ -23,14 +23,7 @@ message GetScreeningRequest {
 }
 
 message GetScreeningResponse {
-  string id = 1;
-  string hallId = 2;
-  string startAt = 3;
-  string endAt = 4;
-  int32 price = 5;
-  Theater theater = 6;
-  Hall hall = 7;
-  Movie movie = 8;
+  Screening screening = 1;
 }
 
 message GetScreeningsByDateRequest {
@@ -73,7 +66,9 @@ message Screening {
   string startAt = 3;
   string endAt = 4;
   int32 price = 5;
-  Movie movie = 6;
+  Theater theater = 6;
+  Hall hall = 7;
+  Movie movie = 8;
 }
 
 message Movie {
