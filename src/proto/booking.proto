@@ -3,16 +3,20 @@ syntax = "proto3";
 package booking.v1;
 
 service BookingService {
+  rpc GetUserBookings (GetUserBookingsRequest) returns (GetUserBookingsResponse);
   rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse);
   rpc ConfirmBooking (ConfirmBookingRequest) returns (ConfirmBookingResponse);
-  rpc GetUserBookings (GetUserBookingsRequest) returns (GetUserBookingsResponse);
+  rpc CancelBooking (CancelBookingRequest) returns (CancelBookingResponse);
 
   rpc ListReservedSeats (ListReservedSeatsRequest) returns (ListReservedSeatsResponse);
 }
 
-message SeatInput {
-  string seat_id = 1;    
-  int32 price = 2;     
+message GetUserBookingsRequest {
+  string user_id = 1;
+}
+
+message GetUserBookingsResponse {
+  repeated BookingItem bookings = 1;
 }
 
 message CreateReservationRequest {
@@ -29,6 +33,11 @@ message CreateReservationResponse {
   int32 amount = 4;      
 }
 
+message SeatInput {
+  string seat_id = 1;    
+  int32 price = 2;     
+}
+
 message ConfirmBookingRequest {
   string booking_id = 1;
   string user_id = 2;
@@ -38,12 +47,13 @@ message ConfirmBookingResponse {
   bool ok = 1;
 }
 
-message GetUserBookingsRequest {
-  string user_id = 1;
+message CancelBookingRequest {
+  string booking_id = 1;
+  string user_id = 2;
 }
 
-message GetUserBookingsResponse {
-  repeated BookingItem bookings = 1;
+message CancelBookingResponse {
+  bool ok = 1;
 }
 
 message ListReservedSeatsRequest {
