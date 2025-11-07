@@ -22,8 +22,7 @@ export interface GetScreeningRequest {
   id: string;
 }
 
-export interface GetScreeningsTodayRequest {
-  theaterId: string;
+export interface GetScreeningsByDateRequest {
   hallId: string;
   date: string;
 }
@@ -52,7 +51,6 @@ export interface ListScreeningsResponse {
   screenings: Screening[];
 }
 
-/** Новый тип ответа — сгруппированные по дате и кинотеатрам */
 export interface GroupedScreeningsResponse {
   ok: boolean;
   dates: DateGroup[];
@@ -73,28 +71,21 @@ export interface MovieShort {
   slug: string;
 }
 
-/** Сеансы сгруппированы по дате */
 export interface DateGroup {
-  /** YYYY-MM-DD */
   date: string;
   theaters: TheaterGroup[];
 }
 
-/** Сеансы внутри одной даты сгруппированы по кинотеатрам */
 export interface TheaterGroup {
-  /** теперь возвращаем весь объект театра */
   theater: Theater | undefined;
   screenings: ScreeningInfo[];
 }
 
-/** Упрощённая информация о сеансе */
 export interface ScreeningInfo {
   id: string;
-  /** например "21:30" */
   time: string;
   hall: string;
   format: string;
-  /** массив типов мест и их цен */
   seats: SeatType[];
 }
 
@@ -116,7 +107,7 @@ export interface ScreeningServiceClient {
 
   getScreening(request: GetScreeningRequest): Observable<ScreeningResponse>;
 
-  getScreeningsToday(request: GetScreeningsTodayRequest): Observable<ListScreeningsResponse>;
+  getScreeningsByDate(request: GetScreeningsByDateRequest): Observable<ListScreeningsResponse>;
 
   getScreeningsByMovie(request: GetScreeningsByMovieRequest): Observable<GroupedScreeningsResponse>;
 
@@ -132,8 +123,8 @@ export interface ScreeningServiceController {
     request: GetScreeningRequest,
   ): Promise<ScreeningResponse> | Observable<ScreeningResponse> | ScreeningResponse;
 
-  getScreeningsToday(
-    request: GetScreeningsTodayRequest,
+  getScreeningsByDate(
+    request: GetScreeningsByDateRequest,
   ): Promise<ListScreeningsResponse> | Observable<ListScreeningsResponse> | ListScreeningsResponse;
 
   getScreeningsByMovie(
@@ -150,7 +141,7 @@ export function ScreeningServiceControllerMethods() {
     const grpcMethods: string[] = [
       "createScreening",
       "getScreening",
-      "getScreeningsToday",
+      "getScreeningsByDate",
       "getScreeningsByMovie",
       "getScreeningsByHall",
     ];

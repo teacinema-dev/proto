@@ -10,22 +10,33 @@ import { Observable } from "rxjs";
 
 export const protobufPackage = "auth.v1";
 
-export interface PhoneSendCodeRequest {
-  phone: string;
+export interface SendOtpRequest {
+  identifier: string;
+  type: string;
 }
 
-export interface PhoneSendCodeResponse {
+export interface SendOtpResponse {
   ok: boolean;
 }
 
-export interface PhoneVerifyCodeRequest {
-  phone: string;
+export interface VerifyOtpRequest {
+  identifier: string;
   code: string;
+  type: string;
 }
 
-export interface PhoneVerifyCodeResponse {
-  ok: boolean;
-  token: string;
+export interface VerifyOtpResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface RefreshRequest {
+  refreshToken: string;
+}
+
+export interface RefreshResponse {
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface GetAuthUrlRequest {
@@ -55,8 +66,8 @@ export interface TelegramRegisterRequest {
 }
 
 export interface TelegramRegisterResponse {
-  ok: boolean;
-  token: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface GetUserRequest {
@@ -71,9 +82,11 @@ export interface GetUserResponse {
 export const AUTH_V1_PACKAGE_NAME = "auth.v1";
 
 export interface AuthServiceClient {
-  phoneSendCode(request: PhoneSendCodeRequest): Observable<PhoneSendCodeResponse>;
+  sendOtp(request: SendOtpRequest): Observable<SendOtpResponse>;
 
-  phoneVerifyCode(request: PhoneVerifyCodeRequest): Observable<PhoneVerifyCodeResponse>;
+  verifyOtp(request: VerifyOtpRequest): Observable<VerifyOtpResponse>;
+
+  refresh(request: RefreshRequest): Observable<RefreshResponse>;
 
   getAuthUrl(request: GetAuthUrlRequest): Observable<GetAuthUrlResponse>;
 
@@ -85,13 +98,11 @@ export interface AuthServiceClient {
 }
 
 export interface AuthServiceController {
-  phoneSendCode(
-    request: PhoneSendCodeRequest,
-  ): Promise<PhoneSendCodeResponse> | Observable<PhoneSendCodeResponse> | PhoneSendCodeResponse;
+  sendOtp(request: SendOtpRequest): Promise<SendOtpResponse> | Observable<SendOtpResponse> | SendOtpResponse;
 
-  phoneVerifyCode(
-    request: PhoneVerifyCodeRequest,
-  ): Promise<PhoneVerifyCodeResponse> | Observable<PhoneVerifyCodeResponse> | PhoneVerifyCodeResponse;
+  verifyOtp(request: VerifyOtpRequest): Promise<VerifyOtpResponse> | Observable<VerifyOtpResponse> | VerifyOtpResponse;
+
+  refresh(request: RefreshRequest): Promise<RefreshResponse> | Observable<RefreshResponse> | RefreshResponse;
 
   getAuthUrl(
     request: GetAuthUrlRequest,
@@ -109,8 +120,9 @@ export interface AuthServiceController {
 export function AuthServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
-      "phoneSendCode",
-      "phoneVerifyCode",
+      "sendOtp",
+      "verifyOtp",
+      "refresh",
       "getAuthUrl",
       "callback",
       "telegramRegister",

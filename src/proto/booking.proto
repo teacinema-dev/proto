@@ -57,7 +57,9 @@ message ListReservedSeatsResponse {
 }
 
 message BookingSeatInfo {
-  string seat_id = 1;
+  string id = 1;
+  int32 row = 2;
+  int32 number = 3;
 }
 
 message BookingMovieInfo {

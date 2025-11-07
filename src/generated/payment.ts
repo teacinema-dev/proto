@@ -16,27 +16,123 @@ export interface CreatePaymentRequest {
   savePaymentMethod: boolean;
   bookingId: string;
   userId: string;
+  paymentMethodId?: string | undefined;
 }
 
 export interface CreatePaymentResponse {
   url: string;
 }
 
+export interface HandleWebhookRequest {
+  event: string;
+  paymentId: string;
+  bookingId: string;
+  userId: string;
+  savePaymentMethod: boolean;
+  providerMethodId: string;
+  cardFirst6: string;
+  cardLast4: string;
+}
+
+export interface HandleWebhookResponse {
+  ok: boolean;
+}
+
+export interface GetUserPaymentMethodsRequest {
+  userId: string;
+}
+
+export interface GetUserPaymentMethodsResponse {
+  methods: PaymentMethodItem[];
+}
+
+export interface CreatePaymentMethodRequest {
+  userId: string;
+}
+
+export interface CreatePaymentMethodResponse {
+  id: string;
+  url: string;
+}
+
+export interface VerifyPaymentMethodRequest {
+  userId: string;
+  methodId: string;
+}
+
+export interface VerifyPaymentMethodResponse {
+  ok: boolean;
+}
+
+export interface DeletePaymentMethodRequest {
+  userId: string;
+  methodId: string;
+}
+
+export interface DeletePaymentMethodResponse {
+  ok: boolean;
+}
+
+export interface PaymentMethodItem {
+  id: string;
+  bank: string;
+  brand: string;
+  first6: string;
+  last4: string;
+}
+
 export const PAYMENT_V1_PACKAGE_NAME = "payment.v1";
 
 export interface PaymentServiceClient {
   createPayment(request: CreatePaymentRequest): Observable<CreatePaymentResponse>;
+
+  handleWebhook(request: HandleWebhookRequest): Observable<HandleWebhookResponse>;
+
+  getUserPaymentMethods(request: GetUserPaymentMethodsRequest): Observable<GetUserPaymentMethodsResponse>;
+
+  createPaymentMethod(request: CreatePaymentMethodRequest): Observable<CreatePaymentMethodResponse>;
+
+  verifyPaymentMethod(request: VerifyPaymentMethodRequest): Observable<VerifyPaymentMethodResponse>;
+
+  deletePaymentMethod(request: DeletePaymentMethodRequest): Observable<DeletePaymentMethodResponse>;
 }
 
 export interface PaymentServiceController {
   createPayment(
     request: CreatePaymentRequest,
   ): Promise<CreatePaymentResponse> | Observable<CreatePaymentResponse> | CreatePaymentResponse;
+
+  handleWebhook(
+    request: HandleWebhookRequest,
+  ): Promise<HandleWebhookResponse> | Observable<HandleWebhookResponse> | HandleWebhookResponse;
+
+  getUserPaymentMethods(
+    request: GetUserPaymentMethodsRequest,
+  ): Promise<GetUserPaymentMethodsResponse> | Observable<GetUserPaymentMethodsResponse> | GetUserPaymentMethodsResponse;
+
+  createPaymentMethod(
+    request: CreatePaymentMethodRequest,
+  ): Promise<CreatePaymentMethodResponse> | Observable<CreatePaymentMethodResponse> | CreatePaymentMethodResponse;
+
+  verifyPaymentMethod(
+    request: VerifyPaymentMethodRequest,
+  ): Promise<VerifyPaymentMethodResponse> | Observable<VerifyPaymentMethodResponse> | VerifyPaymentMethodResponse;
+
+  deletePaymentMethod(
+    request: DeletePaymentMethodRequest,
+  ): Promise<DeletePaymentMethodResponse> | Observable<DeletePaymentMethodResponse> | DeletePaymentMethodResponse;
 }
 
 export function PaymentServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["createPayment"];
+    const grpcMethods: string[] = [
+      "createPayment",
+      "handleWebhook",
+      "getUserPaymentMethods",
+      "createPaymentMethod",
+      "verifyPaymentMethod",
+      "deletePaymentMethod",
+    ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("PaymentService", method)(constructor.prototype[method], method, descriptor);

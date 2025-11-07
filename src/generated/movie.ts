@@ -27,20 +27,20 @@ export interface GetPopularMoviesResponse {
   movies: Movie[];
 }
 
-export interface GetByIdRequest {
+export interface GetMovieByIdRequest {
   id: string;
 }
 
-export interface GetByIdResponse {
+export interface GetMovieByIdResponse {
   ok: boolean;
   movie: MovieDetails | undefined;
 }
 
-export interface GetBySlugRequest {
+export interface GetMovieBySlugRequest {
   slug: string;
 }
 
-export interface GetBySlugResponse {
+export interface GetMovieBySlugResponse {
   ok: boolean;
   movie: MovieDetails | undefined;
 }
@@ -61,6 +61,7 @@ export interface MovieDetails {
   title: string;
   slug: string;
   description: string;
+  poster: string;
   banner: string;
   trailer: string;
   duration: string;
@@ -72,32 +73,36 @@ export interface MovieDetails {
 export const MOVIE_V1_PACKAGE_NAME = "movie.v1";
 
 export interface MovieServiceClient {
-  getAll(request: GetAllMoviesRequest): Observable<GetAllMoviesResponse>;
+  getAllMovies(request: GetAllMoviesRequest): Observable<GetAllMoviesResponse>;
 
-  getPopular(request: GetPopularMoviesRequest): Observable<GetPopularMoviesResponse>;
+  getPopularMovies(request: GetPopularMoviesRequest): Observable<GetPopularMoviesResponse>;
 
-  getById(request: GetByIdRequest): Observable<GetByIdResponse>;
+  getMovieById(request: GetMovieByIdRequest): Observable<GetMovieByIdResponse>;
 
-  getBySlug(request: GetBySlugRequest): Observable<GetBySlugResponse>;
+  getMovieBySlug(request: GetMovieBySlugRequest): Observable<GetMovieBySlugResponse>;
 }
 
 export interface MovieServiceController {
-  getAll(
+  getAllMovies(
     request: GetAllMoviesRequest,
   ): Promise<GetAllMoviesResponse> | Observable<GetAllMoviesResponse> | GetAllMoviesResponse;
 
-  getPopular(
+  getPopularMovies(
     request: GetPopularMoviesRequest,
   ): Promise<GetPopularMoviesResponse> | Observable<GetPopularMoviesResponse> | GetPopularMoviesResponse;
 
-  getById(request: GetByIdRequest): Promise<GetByIdResponse> | Observable<GetByIdResponse> | GetByIdResponse;
+  getMovieById(
+    request: GetMovieByIdRequest,
+  ): Promise<GetMovieByIdResponse> | Observable<GetMovieByIdResponse> | GetMovieByIdResponse;
 
-  getBySlug(request: GetBySlugRequest): Promise<GetBySlugResponse> | Observable<GetBySlugResponse> | GetBySlugResponse;
+  getMovieBySlug(
+    request: GetMovieBySlugRequest,
+  ): Promise<GetMovieBySlugResponse> | Observable<GetMovieBySlugResponse> | GetMovieBySlugResponse;
 }
 
 export function MovieServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getAll", "getPopular", "getById", "getBySlug"];
+    const grpcMethods: string[] = ["getAllMovies", "getPopularMovies", "getMovieById", "getMovieBySlug"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("MovieService", method)(constructor.prototype[method], method, descriptor);

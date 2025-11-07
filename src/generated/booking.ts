@@ -26,7 +26,24 @@ export interface CreateReservationResponse {
   orderId: string;
   ticketIds: string[];
   expiresAt: number;
-  totalAmount: number;
+  amount: number;
+}
+
+export interface ConfirmBookingRequest {
+  bookingId: string;
+  userId: string;
+}
+
+export interface ConfirmBookingResponse {
+  ok: boolean;
+}
+
+export interface GetUserBookingsRequest {
+  userId: string;
+}
+
+export interface GetUserBookingsResponse {
+  bookings: BookingItem[];
 }
 
 export interface ListReservedSeatsRequest {
@@ -35,13 +52,47 @@ export interface ListReservedSeatsRequest {
 }
 
 export interface ListReservedSeatsResponse {
+  ok: boolean;
   reservedSeatIds: string[];
+}
+
+export interface BookingSeatInfo {
+  seatId: string;
+}
+
+export interface BookingMovieInfo {
+  id: string;
+  title: string;
+  poster: string;
+}
+
+export interface BookingTheaterInfo {
+  id: string;
+  name: string;
+}
+
+export interface BookingHallInfo {
+  id: string;
+  name: string;
+}
+
+export interface BookingItem {
+  id: string;
+  movie: BookingMovieInfo | undefined;
+  theater: BookingTheaterInfo | undefined;
+  hall: BookingHallInfo | undefined;
+  seats: BookingSeatInfo[];
+  qrCode: string;
 }
 
 export const BOOKING_V1_PACKAGE_NAME = "booking.v1";
 
 export interface BookingServiceClient {
   createReservation(request: CreateReservationRequest): Observable<CreateReservationResponse>;
+
+  confirmBooking(request: ConfirmBookingRequest): Observable<ConfirmBookingResponse>;
+
+  getUserBookings(request: GetUserBookingsRequest): Observable<GetUserBookingsResponse>;
 
   listReservedSeats(request: ListReservedSeatsRequest): Observable<ListReservedSeatsResponse>;
 }
@@ -51,6 +102,14 @@ export interface BookingServiceController {
     request: CreateReservationRequest,
   ): Promise<CreateReservationResponse> | Observable<CreateReservationResponse> | CreateReservationResponse;
 
+  confirmBooking(
+    request: ConfirmBookingRequest,
+  ): Promise<ConfirmBookingResponse> | Observable<ConfirmBookingResponse> | ConfirmBookingResponse;
+
+  getUserBookings(
+    request: GetUserBookingsRequest,
+  ): Promise<GetUserBookingsResponse> | Observable<GetUserBookingsResponse> | GetUserBookingsResponse;
+
   listReservedSeats(
     request: ListReservedSeatsRequest,
   ): Promise<ListReservedSeatsResponse> | Observable<ListReservedSeatsResponse> | ListReservedSeatsResponse;
@@ -58,7 +117,7 @@ export interface BookingServiceController {
 
 export function BookingServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["createReservation", "listReservedSeats"];
+    const grpcMethods: string[] = ["createReservation", "confirmBooking", "getUserBookings", "listReservedSeats"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("BookingService", method)(constructor.prototype[method], method, descriptor);

@@ -14,13 +14,14 @@ export interface GetSeatRequest {
   id: string;
 }
 
-export interface GetSeatsRequest {
-  hallId: string;
-}
-
-export interface SeatResponse {
+export interface GetSeatsResponse {
   ok: boolean;
   seat: Seat | undefined;
+}
+
+export interface ListSeatsRequest {
+  hallId: string;
+  screeningId: string;
 }
 
 export interface ListSeatsResponse {
@@ -42,16 +43,16 @@ export interface Seat {
 export const SEAT_V1_PACKAGE_NAME = "seat.v1";
 
 export interface SeatServiceClient {
-  getSeat(request: GetSeatRequest): Observable<SeatResponse>;
+  getSeat(request: GetSeatRequest): Observable<GetSeatsResponse>;
 
-  listSeatsByHall(request: GetSeatsRequest): Observable<ListSeatsResponse>;
+  listSeatsByHall(request: ListSeatsRequest): Observable<ListSeatsResponse>;
 }
 
 export interface SeatServiceController {
-  getSeat(request: GetSeatRequest): Promise<SeatResponse> | Observable<SeatResponse> | SeatResponse;
+  getSeat(request: GetSeatRequest): Promise<GetSeatsResponse> | Observable<GetSeatsResponse> | GetSeatsResponse;
 
   listSeatsByHall(
-    request: GetSeatsRequest,
+    request: ListSeatsRequest,
   ): Promise<ListSeatsResponse> | Observable<ListSeatsResponse> | ListSeatsResponse;
 }
 

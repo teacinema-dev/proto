@@ -1,6 +1,6 @@
 {
 	"name": "@teacinema-dev/contracts",
-	"version": "1.0.32",
+	"version": "1.0.33",
 	"description": "Protobuf definitions and generated TypeScript types",
 	"files": [
 		"src/proto",
@@ -20,6 +20,7 @@
 		"ts-proto": "^2.7.7"
 	},
 	"dependencies": {
+		"@nestjs/common": "^11.1.8",
 		"@nestjs/microservices": "^11.1.7",
 		"rxjs": "^7.8.2"
 	}
