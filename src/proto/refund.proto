@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package refund.v1;
+
+service RefundService {
+  rpc CreateRefund(CreateRefundRequest) returns (CreateRefundResponse);
+  rpc HandleRefundWebhook(HandleRefundWebhookRequest) returns (HandleRefundWebhookResponse);
+}
+
+message CreateRefundRequest {
+  string payment_id = 1;
+  string user_id = 2;
+}
+
+message CreateRefundResponse {
+  bool ok = 1;
+}
+
+message HandleRefundWebhookRequest {
+  string event = 1;
+  string provider_refund_id = 2;
+  string status = 3;
+}
+
+message HandleRefundWebhookResponse {
+  bool ok = 1;
+}
