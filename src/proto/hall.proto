@@ -11,9 +11,14 @@ service HallService {
 message CreateHallRequest {
   string theaterId = 1;
   string name = 2;
-  int32 rows = 3;
-  int32 columns = 4;
-  string config = 5;
+  repeated SeatRowConfig layout = 3;
+}
+
+message SeatRowConfig {
+  int32 row = 1;
+  int32 columns = 2;
+  string type = 3;
+  int32 price = 4;
 }
 
 message GetHallRequest {
@@ -43,10 +48,8 @@ message HallWithSeatsResponse {
 message Hall {
   string id = 1;
   string name = 2;
-  int32 rows = 3;
-  int32 columns = 4;
-  string config = 5;
-  string theaterId = 6;
+  string theaterId = 3;
+  repeated SeatRowConfig layout = 4; 
 }
 
 message Seat {
@@ -56,4 +59,5 @@ message Seat {
   string label = 4;
   string type = 5;
   string hallId = 6;
+  int32 price = 7;
 }
