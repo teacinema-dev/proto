@@ -3,8 +3,8 @@ syntax = "proto3";
 package screening.v1;
 
 service ScreeningService {
-  rpc CreateScreening (CreateScreeningRequest) returns (GetScreeningResponse);
-  rpc GetScreening (GetScreeningRequest) returns (ScreeningResponse);
+  rpc CreateScreening (CreateScreeningRequest) returns (ScreeningResponse);
+  rpc GetScreening (GetScreeningRequest) returns (GetScreeningResponse);
   rpc GetScreeningsByDate (GetScreeningsByDateRequest) returns (ListScreeningsResponse);
   rpc GetScreeningsByMovie (GetScreeningsByMovieRequest) returns (GroupedScreeningsResponse);
   rpc GetScreeningsByHall (GetScreeningsByHallRequest) returns (ListScreeningsResponse);
