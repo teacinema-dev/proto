@@ -81,7 +81,7 @@ message BookingHallInfo {
 message BookingItem {
   string id = 1;
   string screening_date = 2;
-  string screeening_time = 3;
+  string screening_time = 3;
   BookingMovieInfo movie = 4;
   BookingTheaterInfo theater = 5;
   BookingHallInfo hall = 6;
