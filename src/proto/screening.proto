@@ -22,6 +22,17 @@ message GetScreeningRequest {
   string id = 1;
 }
 
+message GetScreeningResponse {
+  string id = 1;
+  string hallId = 2;
+  string startAt = 3;
+  string endAt = 4;
+  int32 price = 5;
+  Theater theater = 6;
+  Hall hall = 7;
+  Movie movie = 8;
+}
+
 message GetScreeningsByDateRequest {
   string hallId = 1;
   string date = 2;
@@ -62,10 +73,10 @@ message Screening {
   string startAt = 3;
   string endAt = 4;
   int32 price = 5;
-  MovieShort movie = 6;
+  Movie movie = 6;
 }
 
-message MovieShort {
+message Movie {
   string id = 1;
   string title = 2;
   string slug = 3;
@@ -93,6 +104,11 @@ message Theater {
   string id = 1;
   string name = 2;
   string address = 3;
+}
+
+message Hall {
+  string id = 1;
+  string name = 2;
 }
 
 message SeatType {
