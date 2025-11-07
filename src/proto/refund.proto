@@ -8,7 +8,7 @@ service RefundService {
 }
 
 message CreateRefundRequest {
-  string payment_id = 1;
+  string booking_id = 1;
   string user_id = 2;
 }
 
