@@ -31,7 +31,7 @@ message GetScreeningsByDateRequest {
 
 message GetScreeningsByMovieRequest {
   string movie_id = 1;
-  string date = 2;
+  optional string date = 2;
 }
 
 // --------- RESPONSES ---------
@@ -71,7 +71,7 @@ message Movie {
   string id = 1;
   string title = 2;
   string slug = 3;
-  string poster = 4;
+  int32 durarion = 4;
   string banner = 5;
 }
 
