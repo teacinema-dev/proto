@@ -71,8 +71,8 @@ message Movie {
   string id = 1;
   string title = 2;
   string slug = 3;
-  string poster_url = 4;
-  string banner_url = 5;
+  string poster = 4;
+  string banner = 5;
 }
 
 message Theater {
