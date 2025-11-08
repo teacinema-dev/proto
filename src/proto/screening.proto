@@ -2,81 +2,90 @@ syntax = "proto3";
 
 package screening.v1;
 
+import "google/protobuf/timestamp.proto";
+
+// --------- SERVICE ---------
+
 service ScreeningService {
   rpc CreateScreening (CreateScreeningRequest) returns (ScreeningResponse);
   rpc GetScreening (GetScreeningRequest) returns (GetScreeningResponse);
   rpc GetScreeningsByDate (GetScreeningsByDateRequest) returns (ListScreeningsResponse);
   rpc GetScreeningsByMovie (GetScreeningsByMovieRequest) returns (GroupedScreeningsResponse);
-  rpc GetScreeningsByHall (GetScreeningsByHallRequest) returns (ListScreeningsResponse);
 }
 
+// --------- REQUESTS ---------
+
 message CreateScreeningRequest {
-  string movieId = 1;
-  string hallId = 2;
-  string startAt = 3;
-  string endAt = 4;
-  int32 price = 5;
+  string movie_id = 1;
+  string hall_id = 2;
+  google.protobuf.Timestamp start_at = 3;
+  google.protobuf.Timestamp end_at = 4;
 }
 
 message GetScreeningRequest {
-  string id = 1;
+  string screening_id = 1;
+}
+
+message GetScreeningsByDateRequest {
+  string theater_id = 1;
+  string date = 2;
+}
+
+message GetScreeningsByMovieRequest {
+  string movie_id = 1;
+  string date = 2;
+}
+
+// --------- RESPONSES ---------
+
+message ScreeningResponse {
+  Screening screening = 1;
 }
 
 message GetScreeningResponse {
   Screening screening = 1;
 }
 
-message GetScreeningsByDateRequest {
-  string hallId = 1;
-  string date = 2;
-}
-
-message GetScreeningsByMovieRequest {
-  string movieId = 1;
-  string date = 2;
-}
-
-message GetScreeningsByHallRequest {
-  string hallId = 1;
-  string date = 2;
-}
-
-message GetScreeningSeatMapRequest {
-  string screeningId = 1;
-}
-
-message ScreeningResponse {
-  bool ok = 1;
-  Screening screening = 2;
-}
-
 message ListScreeningsResponse {
-  bool ok = 1;
-  repeated Screening screenings = 2;
+  repeated Screening screenings = 1;
 }
 
 message GroupedScreeningsResponse {
-  bool ok = 1;
-  repeated DateGroup dates = 2;
+  repeated DateGroup dates = 1;
 }
+
+// --------- ENTITIES ---------
 
 message Screening {
   string id = 1;
-  string hallId = 2;
-  string startAt = 3;
-  string endAt = 4;
-  int32 price = 5;
-  Theater theater = 6;
-  Hall hall = 7;
-  Movie movie = 8;
+  google.protobuf.Timestamp start_at = 2;
+  google.protobuf.Timestamp end_at = 3;
+
+  string hall_id = 4;
+  Theater theater = 5;
+  Hall hall = 6;
+  Movie movie = 7;
+
+  repeated SeatType seat_types = 8;
 }
 
 message Movie {
   string id = 1;
   string title = 2;
   string slug = 3;
-  string poster = 4;
-  string banner = 5;
+  string poster_url = 4;
+  string banner_url = 5;
+}
+
+message Theater {
+  string id = 1;
+  string name = 2;
+  string address = 3;
+}
+
+message Hall {
+  string id = 1;
+  string name = 2;
 }
 
 message DateGroup {
@@ -93,19 +102,7 @@ message ScreeningInfo {
   string id = 1;
   string time = 2;
   string hall = 3;
-  string format = 4;
-  repeated SeatType seats = 5;
-}
-
-message Theater {
-  string id = 1;
-  string name = 2;
-  string address = 3;
-}
-
-message Hall {
-  string id = 1;
-  string name = 2;
+  repeated SeatType seats = 4;
 }
 
 message SeatType {
