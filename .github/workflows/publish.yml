@@ -21,7 +21,10 @@ jobs:
             - name: Install deps
               run: yarn install --frozen-lockfile
 
-            - name: Generate & Verify Proto
+            - name: Make scripts executable
+              run: chmod +x scripts/*.sh
+
+            - name: Generate & Verify Proto (TS + Go match check)
               run: yarn proto:verify
 
     publish-npm:
@@ -41,7 +44,10 @@ jobs:
             - name: Install deps
               run: yarn install --frozen-lockfile
 
-            - name: Generate Proto
+            - name: Make scripts executable
+              run: chmod +x scripts/*.sh
+
+            - name: Generate Proto (TS & Go)
               run: yarn proto:gen
 
             - name: Publish to NPM
@@ -54,7 +60,16 @@ jobs:
         needs: verify
         runs-on: ubuntu-latest
         steps:
-            - name: Create GitHub Release for Go clients
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Make scripts executable
+              run: chmod +x scripts/*.sh
+
+            - name: Generate Go Proto
+              run: ./scripts/generate-go.sh
+
+            - name: Release Go package on GitHub
               uses: softprops/action-gh-release@v2
               with:
                   generate_release_notes: true
