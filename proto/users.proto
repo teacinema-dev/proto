@@ -4,6 +4,7 @@ package users.v1;
 
 service UsersService {
   rpc GetMe (GetMeRequest) returns (GetMeResponse);
+  rpc ChangeAvatar (ChangeAvatarRequest) returns (ChangeAvatarResponse);
 }
 
 message GetMeRequest {
@@ -11,12 +12,22 @@ message GetMeRequest {
 }
 
 message GetMeResponse {
-  bool ok = 1;
   User user = 2;
+}
+
+message ChangeAvatarRequest {
+  string user_id = 1;
+  string content_type = 2;
+  bytes file = 3;
+}
+
+message ChangeAvatarResponse {
+  string url = 1;
 }
 
 message User {
   string id = 1;
   string name = 2;
   string phone = 3;
+  string avatar = 4;
 }
