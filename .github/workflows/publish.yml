@@ -36,9 +36,6 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Make scripts executable
-              run: chmod +x scripts/*.sh
-
             - name: Generate Go Proto
               run: yarn run proto:go
 
