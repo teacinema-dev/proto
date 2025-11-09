@@ -1,21 +1,15 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -e
 
 echo "🔎 Verifying protobuf changes..."
 
-TMP_DIR="$(mktemp -d)"
+./scripts/generate-ts.sh
+./scripts/generate-go.sh
 
-cp -R gen "$TMP_DIR"/gen_old
-
-./scripts/generate-ts.sh >/dev/null 2>&1
-./scripts/generate-go.sh >/dev/null 2>&1
-
-if ! diff -r gen "$TMP_DIR"/gen_old >/dev/null; then
-  echo "❌ Protobuf codegen out of date!"
-  echo "➡️  Run:"
-  echo "     ./scripts/generate-ts.sh"
-  echo "     ./scripts/generate-go.sh"
+# Check if anything changed after generation
+if git diff --exit-code; then
+  echo "✅ Proto files are up to date"
+else
+  echo "❌ Generated files are outdated. Run yarn proto:gen locally"
   exit 1
 fi
-
-echo "✅ Proto verification passed (code generated and consistent)"
