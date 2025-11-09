@@ -1,13 +1,14 @@
-name: Proto CI & Publish
+name: Publish Proto Package
 
 on:
-    pull_request:
     push:
         branches:
             - main
+        tags:
+            - 'v*.*.*'
 
 jobs:
-    publish-npm:
+    build-and-publish:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -22,30 +23,10 @@ jobs:
             - name: Install deps
               run: yarn install --frozen-lockfile
 
-            - name: Make scripts executable
-              run: chmod +x scripts/*.sh
+            - name: Generate Proto Types
+              run: yarn run proto:ts
 
-            - name: Generate Proto (TS & Go)
-              run: yarn proto:gen
-
-            - name: Publish to NPM
+            - name: Publish
               run: npm publish --access public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-    publish-go:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-
-            - name: Make scripts executable
-              run: chmod +x scripts/*.sh
-
-            - name: Generate Go Proto
-              run: ./scripts/generate-go.sh
-
-            - name: Release Go package on GitHub
-              uses: softprops/action-gh-release@v2
-              with:
-                  generate_release_notes: true

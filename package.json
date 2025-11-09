@@ -7,10 +7,10 @@
 		"src/generated"
 	],
 	"scripts": {
-		"proto:gen:ts": "./scripts/generate-ts.sh",
-		"proto:gen:go": "./scripts/generate-go.sh",
-		"proto:verify": "./scripts/verify.sh",
-		"proto:gen": "yarn proto:gen:ts && yarn proto:gen:go"
+		"clean": "rm -rf dist",
+		"proto:ts": "npx protoc -I ./proto ./proto/*.proto --ts_proto_out=./src/generated --ts_proto_opt=nestJs=true",
+		"proto:go": "protoc -I ./proto --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative ./proto/media.proto",
+		"generate": "yarn proto:ts && yarn proto:go"
 	},
 	"publishConfig": {
 		"access": "public"
