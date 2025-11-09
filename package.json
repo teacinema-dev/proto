@@ -1,6 +1,6 @@
 {
 	"name": "@teacinema-dev/contracts",
-	"version": "1.0.49",
+	"version": "1.0.50",
 	"description": "Protobuf definitions and generated TypeScript types",
 	"files": [
 		"src/proto",
@@ -8,8 +8,8 @@
 	],
 	"scripts": {
 		"clean": "rm -rf dist",
-		"proto:ts": "npx protoc -I ./proto ./proto/*.proto --ts_proto_out=./src/generated --ts_proto_opt=nestJs=true",
-		"proto:go": "protoc -I ./proto --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative ./proto/media.proto",
+		"proto:ts": "npx protoc -I ./proto ./proto/*.proto --ts_proto_out=./gen/ts --ts_proto_opt=nestJs=true",
+		"proto:go": "protoc -I ./proto --go_out=./gen/go --go_opt=paths=source_relative --go-grpc_out=./gen/go --go-grpc_opt=paths=source_relative ./proto/media.proto",
 		"generate": "yarn proto:ts && yarn proto:go"
 	},
 	"publishConfig": {

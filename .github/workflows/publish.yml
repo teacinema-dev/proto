@@ -8,7 +8,7 @@ on:
             - 'v*.*.*'
 
 jobs:
-    build-and-publish:
+    publish-npm:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -30,3 +30,19 @@ jobs:
               run: npm publish --access public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    publish-go:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Make scripts executable
+              run: chmod +x scripts/*.sh
+
+            - name: Generate Go Proto
+              run: yarn run proto:go
+
+            - name: Release Go package on GitHub
+              uses: softprops/action-gh-release@v2
+              with:
+                  generate_release_notes: true
