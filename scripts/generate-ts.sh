@@ -8,7 +8,7 @@ PROTO_DIR="proto"
 
 mkdir -p $OUT_DIR
 
-protoc -I $PROTO_DIR $(find $PROTO_DIR -name "*.proto") \
+npx protoc -I $PROTO_DIR $(find $PROTO_DIR -name "*.proto") \
   --ts_proto_out=$OUT_DIR \
   --ts_proto_opt=nestJs=true,env=browser
 
