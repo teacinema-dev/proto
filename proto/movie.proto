@@ -58,7 +58,7 @@ message MovieDetails {
   string poster = 5;
   string banner = 6;
   string trailer = 7;
-  string duration = 8;
+  int32 duration = 8;
   string release_date = 9;
   string rating_age = 10;
   string country = 11;

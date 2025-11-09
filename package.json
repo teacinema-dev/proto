@@ -7,10 +7,10 @@
 		"src/generated"
 	],
 	"scripts": {
-		"clean": "rm -rf dist",
-		"generate": "buf generate",
-		"proto:gen": "npx protoc -I ./src/proto ./src/proto/*.proto --ts_proto_out=./src/generated --ts_proto_opt=nestJs=true",
-		"publish:public": "npm publish --access public"
+		"proto:gen:ts": "./scripts/generate-ts.sh",
+		"proto:gen:go": "./scripts/generate-go.sh",
+		"proto:verify": "./scripts/verify.sh",
+		"proto:gen": "yarn proto:gen:ts && yarn proto:gen:go"
 	},
 	"publishConfig": {
 		"access": "public"
