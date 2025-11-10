@@ -12,6 +12,7 @@ export const protobufPackage = "auth.v1";
 
 export interface SendOtpRequest {
   identifier: string;
+  /** "phone" | "email" */
   type: string;
 }
 
@@ -39,23 +40,23 @@ export interface RefreshResponse {
   refreshToken: string;
 }
 
-export interface GetAuthUrlRequest {
+export interface GetTelegramAuthUrlRequest {
 }
 
-export interface GetAuthUrlResponse {
+export interface GetTelegramAuthUrlResponse {
   url: string;
 }
 
-export interface CallbackRequest {
+export interface TelegramCallbackRequest {
   query: { [key: string]: string };
 }
 
-export interface CallbackRequest_QueryEntry {
+export interface TelegramCallbackRequest_QueryEntry {
   key: string;
   value: string;
 }
 
-export interface CallbackResponse {
+export interface TelegramCallbackResponse {
   url: string;
 }
 
@@ -77,6 +78,49 @@ export interface GetUserRequest {
 export interface GetUserResponse {
   id: string;
   phone: string;
+  email: string;
+  isPhoneVerified: boolean;
+  isEmailVerified: boolean;
+}
+
+export interface InitEmailChangeRequest {
+  userId: string;
+  newEmail: string;
+}
+
+export interface InitEmailChangeResponse {
+  sent: boolean;
+}
+
+export interface ConfirmEmailChangeRequest {
+  userId: string;
+  newEmail: string;
+  code: string;
+}
+
+export interface ConfirmEmailChangeResponse {
+  email: string;
+  isEmailVerified: boolean;
+}
+
+export interface InitPhoneChangeRequest {
+  userId: string;
+  newPhone: string;
+}
+
+export interface InitPhoneChangeResponse {
+  sent: boolean;
+}
+
+export interface ConfirmPhoneChangeRequest {
+  userId: string;
+  newPhone: string;
+  code: string;
+}
+
+export interface ConfirmPhoneChangeResponse {
+  phone: string;
+  isPhoneVerified: boolean;
 }
 
 export const AUTH_V1_PACKAGE_NAME = "auth.v1";
@@ -88,13 +132,21 @@ export interface AuthServiceClient {
 
   refresh(request: RefreshRequest): Observable<RefreshResponse>;
 
-  getAuthUrl(request: GetAuthUrlRequest): Observable<GetAuthUrlResponse>;
+  getTelegramAuthUrl(request: GetTelegramAuthUrlRequest): Observable<GetTelegramAuthUrlResponse>;
 
-  callback(request: CallbackRequest): Observable<CallbackResponse>;
+  telegramCallback(request: TelegramCallbackRequest): Observable<TelegramCallbackResponse>;
 
   telegramRegister(request: TelegramRegisterRequest): Observable<TelegramRegisterResponse>;
 
   getUser(request: GetUserRequest): Observable<GetUserResponse>;
+
+  initEmailChange(request: InitEmailChangeRequest): Observable<InitEmailChangeResponse>;
+
+  confirmEmailChange(request: ConfirmEmailChangeRequest): Observable<ConfirmEmailChangeResponse>;
+
+  initPhoneChange(request: InitPhoneChangeRequest): Observable<InitPhoneChangeResponse>;
+
+  confirmPhoneChange(request: ConfirmPhoneChangeRequest): Observable<ConfirmPhoneChangeResponse>;
 }
 
 export interface AuthServiceController {
@@ -104,17 +156,35 @@ export interface AuthServiceController {
 
   refresh(request: RefreshRequest): Promise<RefreshResponse> | Observable<RefreshResponse> | RefreshResponse;
 
-  getAuthUrl(
-    request: GetAuthUrlRequest,
-  ): Promise<GetAuthUrlResponse> | Observable<GetAuthUrlResponse> | GetAuthUrlResponse;
+  getTelegramAuthUrl(
+    request: GetTelegramAuthUrlRequest,
+  ): Promise<GetTelegramAuthUrlResponse> | Observable<GetTelegramAuthUrlResponse> | GetTelegramAuthUrlResponse;
 
-  callback(request: CallbackRequest): Promise<CallbackResponse> | Observable<CallbackResponse> | CallbackResponse;
+  telegramCallback(
+    request: TelegramCallbackRequest,
+  ): Promise<TelegramCallbackResponse> | Observable<TelegramCallbackResponse> | TelegramCallbackResponse;
 
   telegramRegister(
     request: TelegramRegisterRequest,
   ): Promise<TelegramRegisterResponse> | Observable<TelegramRegisterResponse> | TelegramRegisterResponse;
 
   getUser(request: GetUserRequest): Promise<GetUserResponse> | Observable<GetUserResponse> | GetUserResponse;
+
+  initEmailChange(
+    request: InitEmailChangeRequest,
+  ): Promise<InitEmailChangeResponse> | Observable<InitEmailChangeResponse> | InitEmailChangeResponse;
+
+  confirmEmailChange(
+    request: ConfirmEmailChangeRequest,
+  ): Promise<ConfirmEmailChangeResponse> | Observable<ConfirmEmailChangeResponse> | ConfirmEmailChangeResponse;
+
+  initPhoneChange(
+    request: InitPhoneChangeRequest,
+  ): Promise<InitPhoneChangeResponse> | Observable<InitPhoneChangeResponse> | InitPhoneChangeResponse;
+
+  confirmPhoneChange(
+    request: ConfirmPhoneChangeRequest,
+  ): Promise<ConfirmPhoneChangeResponse> | Observable<ConfirmPhoneChangeResponse> | ConfirmPhoneChangeResponse;
 }
 
 export function AuthServiceControllerMethods() {
@@ -123,10 +193,14 @@ export function AuthServiceControllerMethods() {
       "sendOtp",
       "verifyOtp",
       "refresh",
-      "getAuthUrl",
-      "callback",
+      "getTelegramAuthUrl",
+      "telegramCallback",
       "telegramRegister",
       "getUser",
+      "initEmailChange",
+      "confirmEmailChange",
+      "initPhoneChange",
+      "confirmPhoneChange",
     ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);

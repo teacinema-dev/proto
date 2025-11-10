@@ -15,9 +15,8 @@ export interface UploadRequest {
   folder: string;
   contentType: string;
   data: Uint8Array;
-  resizeWidth: number;
-  resizeHeight: number;
-  preset: string;
+  resizeWidth?: number | undefined;
+  resizeHeight?: number | undefined;
 }
 
 export interface UploadResponse {

@@ -7,66 +7,71 @@ service AuthService {
   rpc VerifyOtp (VerifyOtpRequest) returns (VerifyOtpResponse);
   rpc Refresh (RefreshRequest) returns (RefreshResponse);
 
-  rpc GetAuthUrl (GetAuthUrlRequest) returns (GetAuthUrlResponse);
-  rpc Callback (CallbackRequest) returns (CallbackResponse);
+  rpc GetTelegramAuthUrl (GetTelegramAuthUrlRequest) returns (GetTelegramAuthUrlResponse);
+  rpc TelegramCallback (TelegramCallbackRequest) returns (TelegramCallbackResponse);
   rpc TelegramRegister (TelegramRegisterRequest) returns (TelegramRegisterResponse);
 
-  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+
+  rpc InitEmailChange (InitEmailChangeRequest) returns (InitEmailChangeResponse);
+  rpc ConfirmEmailChange (ConfirmEmailChangeRequest) returns (ConfirmEmailChangeResponse);
+
+  rpc InitPhoneChange (InitPhoneChangeRequest) returns (InitPhoneChangeResponse);
+  rpc ConfirmPhoneChange (ConfirmPhoneChangeRequest) returns (ConfirmPhoneChangeResponse);
 }
+
+// OTP Auth
 
 message SendOtpRequest {
   string identifier = 1;  
-  string type = 2;
+  string type = 2; // "phone" | "email"
 }
 
-message SendOtpResponse {
+message SendOtpResponse { 
   bool ok = 1;
 }
 
 message VerifyOtpRequest {
   string identifier = 1;
   string code = 2;
-  string type = 3;  
+  string type = 3;
 }
 
 message VerifyOtpResponse {
-  string accessToken = 1;
-  string refreshToken = 2;
+  string access_token = 1;
+  string refresh_token = 2;
 }
 
-message RefreshRequest {
-  string refreshToken = 1;
+message RefreshRequest { 
+  string refresh_token = 1;
 }
 
 message RefreshResponse {
-  string accessToken = 1;
-  string refreshToken = 2;
+  string access_token = 1;
+  string refresh_token = 2;
 }
 
-message GetAuthUrlRequest {}
+// Telegram OAuth
 
-message GetAuthUrlResponse {
-  string url = 1;
-}
+message GetTelegramAuthUrlRequest {}
+message GetTelegramAuthUrlResponse { string url = 1; }
 
-message CallbackRequest {
-  map<string, string> query = 1;      
+message TelegramCallbackRequest {
+  map<string, string> query = 1;
 }
-
-message CallbackResponse {
-  string url = 1;
-}
+message TelegramCallbackResponse { string url = 1; }
 
 message TelegramRegisterRequest {
   string telegram_id = 1;
   string phone = 2;
   string username = 3;
 }
-
 message TelegramRegisterResponse {
   string accessToken = 1;
   string refreshToken = 2;
 }
+
+// Get User
 
 message GetUserRequest {
   string id = 1;
@@ -75,4 +80,51 @@ message GetUserRequest {
 message GetUserResponse {
   string id = 1;
   string phone = 2;
+  string email = 3;
+  bool isPhoneVerified = 4;
+  bool isEmailVerified = 5;
+}
+
+// Email change flow
+
+message InitEmailChangeRequest {
+  string userId = 1;
+  string newEmail = 2;
+}
+
+message InitEmailChangeResponse {
+  bool sent = 1;
+}
+
+message ConfirmEmailChangeRequest {
+  string userId = 1;
+  string newEmail = 2;
+  string code = 3;
+}
+
+message ConfirmEmailChangeResponse {
+  string email = 1;
+  bool isEmailVerified = 2;
+}
+
+// Phone change flow
+
+message InitPhoneChangeRequest {
+  string userId = 1;
+  string newPhone = 2;
+}
+
+message InitPhoneChangeResponse {
+  bool sent = 1;
+}
+
+message ConfirmPhoneChangeRequest {
+  string userId = 1;
+  string newPhone = 2;
+  string code = 3;
+}
+
+message ConfirmPhoneChangeResponse {
+  string phone = 1;
+  bool isPhoneVerified = 2;
 }
