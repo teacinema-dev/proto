@@ -17,12 +17,11 @@ message GetMeResponse {
 
 message ChangeAvatarRequest {
   string user_id = 1;
-  string content_type = 2;
-  bytes file = 3;
+  string url = 2;
 }
 
 message ChangeAvatarResponse {
-  string url = 1;
+  bool ok = 1;
 }
 
 message User {
