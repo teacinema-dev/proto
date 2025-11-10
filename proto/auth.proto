@@ -54,21 +54,28 @@ message RefreshResponse {
 // Telegram OAuth
 
 message GetTelegramAuthUrlRequest {}
-message GetTelegramAuthUrlResponse { string url = 1; }
+
+message GetTelegramAuthUrlResponse { 
+  string url = 1;
+}
 
 message TelegramCallbackRequest {
   map<string, string> query = 1;
 }
-message TelegramCallbackResponse { string url = 1; }
+
+message TelegramCallbackResponse { 
+  string url = 1;
+}
 
 message TelegramRegisterRequest {
   string telegram_id = 1;
   string phone = 2;
   string username = 3;
 }
+
 message TelegramRegisterResponse {
-  string accessToken = 1;
-  string refreshToken = 2;
+  string access_token = 1;
+  string refresh_token = 2;
 }
 
 // Get User
@@ -81,15 +88,15 @@ message GetUserResponse {
   string id = 1;
   string phone = 2;
   string email = 3;
-  bool isPhoneVerified = 4;
-  bool isEmailVerified = 5;
+  bool is_phone_verified = 4;
+  bool is_email_verified = 5;
 }
 
 // Email change flow
 
 message InitEmailChangeRequest {
-  string userId = 1;
-  string newEmail = 2;
+  string email = 1;
+  string user_id = 2;
 }
 
 message InitEmailChangeResponse {
@@ -97,21 +104,21 @@ message InitEmailChangeResponse {
 }
 
 message ConfirmEmailChangeRequest {
-  string userId = 1;
-  string newEmail = 2;
-  string code = 3;
+  string email = 1;
+  string code = 2;
+  string user_id = 3;
 }
 
 message ConfirmEmailChangeResponse {
   string email = 1;
-  bool isEmailVerified = 2;
+  bool is_email_verified = 2;
 }
 
 // Phone change flow
 
 message InitPhoneChangeRequest {
-  string userId = 1;
-  string newPhone = 2;
+  string phone = 1;
+  string user_id = 2;
 }
 
 message InitPhoneChangeResponse {
@@ -119,12 +126,12 @@ message InitPhoneChangeResponse {
 }
 
 message ConfirmPhoneChangeRequest {
-  string userId = 1;
-  string newPhone = 2;
-  string code = 3;
+  string phone = 1;
+  string code = 2;
+  string user_id = 3;
 }
 
 message ConfirmPhoneChangeResponse {
   string phone = 1;
-  bool isPhoneVerified = 2;
+  bool is_phone_verified = 2;
 }
