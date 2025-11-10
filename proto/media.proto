@@ -17,6 +17,9 @@ message UploadRequest {
   string folder = 2;
   string content_type = 3;
   bytes data = 4;
+  int32 resize_width = 5;
+  int32 resize_height = 6;
+  string preset = 7;
 }
 
 message UploadResponse {

@@ -27,6 +27,9 @@ type UploadRequest struct {
 	Folder        string                 `protobuf:"bytes,2,opt,name=folder,proto3" json:"folder,omitempty"`
 	ContentType   string                 `protobuf:"bytes,3,opt,name=content_type,json=contentType,proto3" json:"content_type,omitempty"`
 	Data          []byte                 `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
+	ResizeWidth   int32                  `protobuf:"varint,5,opt,name=resize_width,json=resizeWidth,proto3" json:"resize_width,omitempty"`
+	ResizeHeight  int32                  `protobuf:"varint,6,opt,name=resize_height,json=resizeHeight,proto3" json:"resize_height,omitempty"`
+	Preset        string                 `protobuf:"bytes,7,opt,name=preset,proto3" json:"preset,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -87,6 +90,27 @@ func (x *UploadRequest) GetData() []byte {
 		return x.Data
 	}
 	return nil
+}
+
+func (x *UploadRequest) GetResizeWidth() int32 {
+	if x != nil {
+		return x.ResizeWidth
+	}
+	return 0
+}
+
+func (x *UploadRequest) GetResizeHeight() int32 {
+	if x != nil {
+		return x.ResizeHeight
+	}
+	return 0
+}
+
+func (x *UploadRequest) GetPreset() string {
+	if x != nil {
+		return x.Preset
+	}
+	return ""
 }
 
 type UploadResponse struct {
@@ -425,12 +449,15 @@ var File_media_proto protoreflect.FileDescriptor
 
 const file_media_proto_rawDesc = "" +
 	"\n" +
-	"\vmedia.proto\x12\bmedia.v1\"{\n" +
+	"\vmedia.proto\x12\bmedia.v1\"\xdb\x01\n" +
 	"\rUploadRequest\x12\x1b\n" +
 	"\tfile_name\x18\x01 \x01(\tR\bfileName\x12\x16\n" +
 	"\x06folder\x18\x02 \x01(\tR\x06folder\x12!\n" +
 	"\fcontent_type\x18\x03 \x01(\tR\vcontentType\x12\x12\n" +
-	"\x04data\x18\x04 \x01(\fR\x04data\"\"\n" +
+	"\x04data\x18\x04 \x01(\fR\x04data\x12!\n" +
+	"\fresize_width\x18\x05 \x01(\x05R\vresizeWidth\x12#\n" +
+	"\rresize_height\x18\x06 \x01(\x05R\fresizeHeight\x12\x16\n" +
+	"\x06preset\x18\a \x01(\tR\x06preset\"\"\n" +
 	"\x0eUploadResponse\x12\x10\n" +
 	"\x03url\x18\x01 \x01(\tR\x03url\"\x1e\n" +
 	"\n" +

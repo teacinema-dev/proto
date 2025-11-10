@@ -36,8 +36,8 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Generate Go Proto
-              run: yarn run proto:go
+            # - name: Generate Go Proto
+            #   run: yarn run proto:go
 
             - name: Release Go package on GitHub
               uses: softprops/action-gh-release@v2
