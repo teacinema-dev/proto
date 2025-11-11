@@ -5,7 +5,8 @@
 	"files": [
 		"proto",
 		"src",
-		"gen/ts"
+		"gen/ts",
+		"dist"
 	],
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
