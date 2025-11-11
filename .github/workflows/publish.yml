@@ -26,6 +26,9 @@ jobs:
             - name: Generate Proto Types
               run: yarn run proto:ts
 
+            - name: Build
+              run: yarn run build
+
             - name: Publish
               run: npm publish --access public
               env:
