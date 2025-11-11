@@ -57,7 +57,9 @@ export interface TelegramCallbackRequest_QueryEntry {
 }
 
 export interface TelegramCallbackResponse {
-  url: string;
+  url?: string | undefined;
+  accessToken?: string | undefined;
+  refreshToken?: string | undefined;
 }
 
 export interface TelegramRegisterRequest {

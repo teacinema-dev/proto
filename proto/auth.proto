@@ -56,7 +56,11 @@ message TelegramCallbackRequest {
 }
 
 message TelegramCallbackResponse { 
-  string url = 1;
+  oneof result {
+    string url = 1;
+    string access_token = 2;
+    string refresh_token = 3;
+  }
 }
 
 message TelegramRegisterRequest {
