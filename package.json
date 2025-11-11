@@ -1,10 +1,10 @@
 {
 	"name": "@teacinema-dev/contracts",
-	"version": "1.0.63",
+	"version": "1.0.64",
 	"description": "Protobuf definitions and generated TypeScript types",
 	"files": [
 		"proto",
-		"src",
+		"gen/ts",
 		"dist"
 	],
 	"main": "./dist/index.js",
