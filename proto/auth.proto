@@ -10,14 +10,6 @@ service AuthService {
   rpc GetTelegramAuthUrl (GetTelegramAuthUrlRequest) returns (GetTelegramAuthUrlResponse);
   rpc TelegramCallback (TelegramCallbackRequest) returns (TelegramCallbackResponse);
   rpc TelegramRegister (TelegramRegisterRequest) returns (TelegramRegisterResponse);
-
-  rpc GetUser (GetUserRequest) returns (GetUserResponse);
-
-  rpc InitEmailChange (InitEmailChangeRequest) returns (InitEmailChangeResponse);
-  rpc ConfirmEmailChange (ConfirmEmailChangeRequest) returns (ConfirmEmailChangeResponse);
-
-  rpc InitPhoneChange (InitPhoneChangeRequest) returns (InitPhoneChangeResponse);
-  rpc ConfirmPhoneChange (ConfirmPhoneChangeRequest) returns (ConfirmPhoneChangeResponse);
 }
 
 // OTP Auth
@@ -76,62 +68,4 @@ message TelegramRegisterRequest {
 message TelegramRegisterResponse {
   string access_token = 1;
   string refresh_token = 2;
-}
-
-// Get User
-
-message GetUserRequest {
-  string id = 1;
-}
-
-message GetUserResponse {
-  string id = 1;
-  string phone = 2;
-  string email = 3;
-  bool is_phone_verified = 4;
-  bool is_email_verified = 5;
-}
-
-// Email change flow
-
-message InitEmailChangeRequest {
-  string email = 1;
-  string user_id = 2;
-}
-
-message InitEmailChangeResponse {
-  bool sent = 1;
-}
-
-message ConfirmEmailChangeRequest {
-  string email = 1;
-  string code = 2;
-  string user_id = 3;
-}
-
-message ConfirmEmailChangeResponse {
-  string email = 1;
-  bool is_email_verified = 2;
-}
-
-// Phone change flow
-
-message InitPhoneChangeRequest {
-  string phone = 1;
-  string user_id = 2;
-}
-
-message InitPhoneChangeResponse {
-  bool sent = 1;
-}
-
-message ConfirmPhoneChangeRequest {
-  string phone = 1;
-  string code = 2;
-  string user_id = 3;
-}
-
-message ConfirmPhoneChangeResponse {
-  string phone = 1;
-  bool is_phone_verified = 2;
 }
