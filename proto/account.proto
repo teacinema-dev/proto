@@ -3,7 +3,7 @@ syntax = "proto3";
 package account.v1;
 
 service AccountService {
-  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc GetAccount (GetAccountRequest) returns (GetAccountResponse);
 
   rpc InitEmailChange (InitEmailChangeRequest) returns (InitEmailChangeResponse);
   rpc ConfirmEmailChange (ConfirmEmailChangeRequest) returns (ConfirmEmailChangeResponse);
@@ -13,11 +13,11 @@ service AccountService {
 }
 
 // Get Account
-message GetUserRequest { 
+message GetAccountRequest { 
   string id = 1;
 }
 
-message GetUserResponse {
+message GetAccountResponse {
   string id = 1;
   string phone = 2;
   string email = 3;
