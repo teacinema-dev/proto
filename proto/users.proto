@@ -4,6 +4,7 @@ package users.v1;
 
 service UsersService {
   rpc GetMe (GetMeRequest) returns (GetMeResponse);
+  rpc PatchUser (PatchUserRequest) returns (PatchUserResponse);
   rpc ChangeAvatar (ChangeAvatarRequest) returns (ChangeAvatarResponse);
 }
 
@@ -13,6 +14,15 @@ message GetMeRequest {
 
 message GetMeResponse {
   User user = 2;
+}
+
+message PatchUserRequest {
+  string user_id = 1;
+  string name = 2;
+}
+
+message PatchUserResponse {
+  User user = 1;
 }
 
 message ChangeAvatarRequest {
