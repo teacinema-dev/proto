@@ -6,7 +6,7 @@ service ScreeningService {
   rpc CreateScreening (CreateScreeningRequest) returns (CreateScreeningResponse);
 
   rpc GetScreening (GetScreeningRequest) returns (GetScreeningResponse);
-  rpc GetScreeningsByDate (GetScreeningsByDateRequest) returns (GetScreeningsByDateResponse);
+  rpc GetScreenings (GetScreeningsRequest) returns (GetScreeningsResponse);
   rpc GetScreeningsByMovie (GetScreeningsByMovieRequest) returns (GetScreeningsByMovieResponse);
 }
 
@@ -23,7 +23,7 @@ message GetScreeningRequest {
   string id = 1;
 }
 
-message GetScreeningsByDateRequest {
+message GetScreeningsRequest {
   optional string theater_id = 1;
   string date = 2;
 }
@@ -43,7 +43,7 @@ message GetScreeningResponse {
   Screening screening = 1;
 }
 
-message GetScreeningsByDateResponse {
+message GetScreeningsResponse {
   repeated Screening screenings = 1;
 }
 

@@ -30,19 +30,16 @@ message GetHallsRequest {
 }
 
 message HallResponse {
-  bool ok = 1;
-  Hall hall = 2;
+  Hall hall = 1;
 }
 
 message ListHallsResponse {
-  bool ok = 1;
-  repeated Hall halls = 2;
+  repeated Hall halls = 1;
 }
 
 message HallWithSeatsResponse {
-  bool ok = 1;
-  Hall hall = 2;
-  repeated Seat seats = 3;
+  Hall hall = 1;
+  repeated Seat seats = 2;
 }
 
 message Hall {

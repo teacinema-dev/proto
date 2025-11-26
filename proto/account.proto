@@ -31,7 +31,9 @@ message InitEmailChangeRequest {
   string user_id = 2;
 }
 
-message InitEmailChangeResponse { bool sent = 1; }
+message InitEmailChangeResponse {
+  bool ok = 1;
+}
 
 message ConfirmEmailChangeRequest {
   string email = 1;
@@ -50,7 +52,9 @@ message InitPhoneChangeRequest {
   string user_id = 2;
 }
 
-message InitPhoneChangeResponse { bool sent = 1; }
+message InitPhoneChangeResponse {
+  bool ok = 1;
+}
 
 message ConfirmPhoneChangeRequest {
   string phone = 1;

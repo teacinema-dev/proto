@@ -2,15 +2,16 @@ syntax = "proto3";
 
 package theater.v1;
 
+import "google/protobuf/empty.proto";
+
 service TheaterService {
-  rpc GetAllTheaters (Empty) returns (GetAllTheatersResponse);
+  rpc GetAllTheaters (google.protobuf.Empty) returns (GetAllTheatersResponse);
   rpc GetTheater (GetTheaterRequest) returns (TheaterResponse);
   rpc CreateTheater (CreateTheaterRequest) returns (TheaterResponse);
 }
 
 message GetAllTheatersResponse {
-  bool ok = 1;
-  repeated Theater theaters = 2;
+  repeated Theater theaters = 1;
 }
 
 message GetTheaterRequest {
@@ -23,8 +24,7 @@ message CreateTheaterRequest {
 }
 
 message TheaterResponse {
-  bool ok = 1;
-  Theater theater = 2;
+  Theater theater = 1;
 }
 
 message Theater {
@@ -32,5 +32,3 @@ message Theater {
   string name = 2;
   string address = 3;
 }
-
-message Empty {}

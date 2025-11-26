@@ -2,11 +2,12 @@ syntax = "proto3";
 
 package category.v1;
 
+import "google/protobuf/empty.proto";
+
 service CategoryService {
-  rpc GetAllCategories (GetAllCategoriesRequest) returns (GetAllCategoriesResponse);
+  rpc GetAllCategories (google.protobuf.Empty) returns (GetAllCategoriesResponse);
 }
 
-message GetAllCategoriesRequest {}
 message GetAllCategoriesResponse {
   bool ok = 1;
   repeated Category categories = 2;

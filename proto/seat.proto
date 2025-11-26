@@ -12,8 +12,7 @@ message GetSeatRequest {
 }
 
 message GetSeatsResponse {
-  bool ok = 1;
-  Seat seat = 2;
+  Seat seat = 1;
 }
 
 message ListSeatsRequest {
@@ -22,8 +21,7 @@ message ListSeatsRequest {
 }
 
 message ListSeatsResponse {
-  bool ok = 1;
-  repeated Seat seats = 2;
+  repeated Seat seats = 1;
 }
 
 message Seat {
