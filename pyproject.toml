@@ -1,5 +1,5 @@
 [project]
-name = "teacinema-contracts"
+name = "teacinema_dev_contracts"
 version = "1.0.0"
 description = "Teacinema multi-language protobuf contracts (Python bindings)"
 readme = "README.md"
