@@ -21,7 +21,7 @@ export interface GetScreeningRequest {
   id: string;
 }
 
-export interface GetScreeningsByDateRequest {
+export interface GetScreeningsRequest {
   theaterId?: string | undefined;
   date: string;
 }
@@ -39,7 +39,7 @@ export interface GetScreeningResponse {
   screening: Screening | undefined;
 }
 
-export interface GetScreeningsByDateResponse {
+export interface GetScreeningsResponse {
   screenings: Screening[];
 }
 
@@ -89,7 +89,7 @@ export interface ScreeningServiceClient {
 
   getScreening(request: GetScreeningRequest): Observable<GetScreeningResponse>;
 
-  getScreeningsByDate(request: GetScreeningsByDateRequest): Observable<GetScreeningsByDateResponse>;
+  getScreenings(request: GetScreeningsRequest): Observable<GetScreeningsResponse>;
 
   getScreeningsByMovie(request: GetScreeningsByMovieRequest): Observable<GetScreeningsByMovieResponse>;
 }
@@ -103,9 +103,9 @@ export interface ScreeningServiceController {
     request: GetScreeningRequest,
   ): Promise<GetScreeningResponse> | Observable<GetScreeningResponse> | GetScreeningResponse;
 
-  getScreeningsByDate(
-    request: GetScreeningsByDateRequest,
-  ): Promise<GetScreeningsByDateResponse> | Observable<GetScreeningsByDateResponse> | GetScreeningsByDateResponse;
+  getScreenings(
+    request: GetScreeningsRequest,
+  ): Promise<GetScreeningsResponse> | Observable<GetScreeningsResponse> | GetScreeningsResponse;
 
   getScreeningsByMovie(
     request: GetScreeningsByMovieRequest,
@@ -114,7 +114,7 @@ export interface ScreeningServiceController {
 
 export function ScreeningServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["createScreening", "getScreening", "getScreeningsByDate", "getScreeningsByMovie"];
+    const grpcMethods: string[] = ["createScreening", "getScreening", "getScreenings", "getScreeningsByMovie"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("ScreeningService", method)(constructor.prototype[method], method, descriptor);

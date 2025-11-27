@@ -1,0 +1,26 @@
+[project]
+name = "@teacinema-dev/contracts"
+version = "1.0.0"
+description = "Teacinema multi-language protobuf contracts (Python bindings)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Teacoder", email = "admin@teacoder.ru" }
+]
+
+dependencies = [
+    "grpcio>=1.56.0",
+    "protobuf>=4.24.0"
+]
+
+[tool.setuptools]
+package-dir = { "" = "gen/py" }
+
+[tool.setuptools.packages.find]
+where = ["gen/py"]
+include = ["*"]
+
+[project.urls]
+Homepage = "https://github.com/teacinem-dev/contracts"
+Source = "https://github.com/teacinema-dev/contracts"

@@ -30,7 +30,7 @@ export interface InitEmailChangeRequest {
 }
 
 export interface InitEmailChangeResponse {
-  sent: boolean;
+  ok: boolean;
 }
 
 export interface ConfirmEmailChangeRequest {
@@ -51,7 +51,7 @@ export interface InitPhoneChangeRequest {
 }
 
 export interface InitPhoneChangeResponse {
-  sent: boolean;
+  ok: boolean;
 }
 
 export interface ConfirmPhoneChangeRequest {

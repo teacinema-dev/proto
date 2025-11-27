@@ -7,11 +7,9 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
+import { Empty } from "./google/protobuf/empty";
 
 export const protobufPackage = "category.v1";
-
-export interface GetAllCategoriesRequest {
-}
 
 export interface GetAllCategoriesResponse {
   ok: boolean;
@@ -28,12 +26,12 @@ export interface Category {
 export const CATEGORY_V1_PACKAGE_NAME = "category.v1";
 
 export interface CategoryServiceClient {
-  getAllCategories(request: GetAllCategoriesRequest): Observable<GetAllCategoriesResponse>;
+  getAllCategories(request: Empty): Observable<GetAllCategoriesResponse>;
 }
 
 export interface CategoryServiceController {
   getAllCategories(
-    request: GetAllCategoriesRequest,
+    request: Empty,
   ): Promise<GetAllCategoriesResponse> | Observable<GetAllCategoriesResponse> | GetAllCategoriesResponse;
 }
 

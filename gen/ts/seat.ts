@@ -15,7 +15,6 @@ export interface GetSeatRequest {
 }
 
 export interface GetSeatsResponse {
-  ok: boolean;
   seat: Seat | undefined;
 }
 
@@ -25,7 +24,6 @@ export interface ListSeatsRequest {
 }
 
 export interface ListSeatsResponse {
-  ok: boolean;
   seats: Seat[];
 }
 
