@@ -5,6 +5,7 @@ package auth.v1;
 service AuthService {
   rpc SendOtp (SendOtpRequest) returns (SendOtpResponse);
   rpc VerifyOtp (VerifyOtpRequest) returns (VerifyOtpResponse);
+   // RPC метод для проверки кода OTP и выдачи токенов.
   rpc Refresh (RefreshRequest) returns (RefreshResponse);
 
   rpc GetTelegramAuthUrl (GetTelegramAuthUrlRequest) returns (GetTelegramAuthUrlResponse);
@@ -15,7 +16,7 @@ service AuthService {
 // OTP Auth
 
 message SendOtpRequest {
-  string identifier = 1;  
+  Identifier identifier = 1;  
   string type = 2; // "phone" | "email"
 }
 
@@ -24,7 +25,7 @@ message SendOtpResponse {
 }
 
 message VerifyOtpRequest {
-  string identifier = 1;
+  Identifier identifier = 1;
   string code = 2;
   string type = 3;
 }
@@ -72,4 +73,10 @@ message TelegramRegisterRequest {
 message TelegramRegisterResponse {
   string access_token = 1;
   string refresh_token = 2;
+}
+
+enum Identifier {
+  IDENTIFIER_TYPE_UNSPECIFIED = 0;
+  PHONE = 1;
+  EMAIL = 2;
 }

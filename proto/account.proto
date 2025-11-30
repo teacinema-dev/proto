@@ -23,6 +23,7 @@ message GetAccountResponse {
   string email = 3;
   bool is_phone_verified = 4;
   bool is_email_verified = 5;
+  Role role = 6;
 }
 
 // Email change
@@ -65,4 +66,9 @@ message ConfirmPhoneChangeRequest {
 message ConfirmPhoneChangeResponse {
   string phone = 1;
   bool is_phone_verified = 2;
+}
+
+enum Role {
+  USER = 0;
+  ADMIN = 1;
 }
