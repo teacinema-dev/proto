@@ -16,8 +16,8 @@ service AuthService {
 // OTP Auth
 
 message SendOtpRequest {
-  Identifier identifier = 1;  
-  string type = 2; // "phone" | "email"
+  string identifier = 1;  
+  Identifier type = 2;
 }
 
 message SendOtpResponse { 
@@ -25,9 +25,9 @@ message SendOtpResponse {
 }
 
 message VerifyOtpRequest {
-  Identifier identifier = 1;
+  string identifier = 1;
   string code = 2;
-  string type = 3;
+  Identifier type = 3;
 }
 
 message VerifyOtpResponse {
