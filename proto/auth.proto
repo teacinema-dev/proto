@@ -5,12 +5,11 @@ package auth.v1;
 service AuthService {
   rpc SendOtp (SendOtpRequest) returns (SendOtpResponse);
   rpc VerifyOtp (VerifyOtpRequest) returns (VerifyOtpResponse);
-   // RPC метод для проверки кода OTP и выдачи токенов.
   rpc Refresh (RefreshRequest) returns (RefreshResponse);
 
-  rpc GetTelegramAuthUrl (GetTelegramAuthUrlRequest) returns (GetTelegramAuthUrlResponse);
-  rpc TelegramCallback (TelegramCallbackRequest) returns (TelegramCallbackResponse);
-  rpc TelegramRegister (TelegramRegisterRequest) returns (TelegramRegisterResponse);
+  rpc TelegramInit (TelegramInitRequest) returns (TelegramInitResponse);
+  rpc TelegramVerify (TelegramVerifyRequest) returns (TelegramVerifyResponse);
+  rpc TelegramComplete (TelegramCompleteRequest) returns (TelegramCompleteResponse);
 }
 
 // OTP Auth
@@ -46,17 +45,16 @@ message RefreshResponse {
 
 // Telegram OAuth
 
-message GetTelegramAuthUrlRequest {}
-
-message GetTelegramAuthUrlResponse { 
+message TelegramInitRequest {}
+message TelegramInitResponse {
   string url = 1;
 }
 
-message TelegramCallbackRequest {
+message TelegramVerifyRequest {
   map<string, string> query = 1;
 }
 
-message TelegramCallbackResponse { 
+message TelegramVerifyResponse {
   oneof result {
     string url = 1;
     string access_token = 2;
@@ -64,13 +62,13 @@ message TelegramCallbackResponse {
   }
 }
 
-message TelegramRegisterRequest {
+message TelegramCompleteRequest {
   string telegram_id = 1;
   string phone = 2;
   string username = 3;
 }
 
-message TelegramRegisterResponse {
+message TelegramCompleteResponse {
   string access_token = 1;
   string refresh_token = 2;
 }
