@@ -10,6 +10,7 @@ service AuthService {
   rpc TelegramInit (TelegramInitRequest) returns (TelegramInitResponse);
   rpc TelegramVerify (TelegramVerifyRequest) returns (TelegramVerifyResponse);
   rpc TelegramComplete (TelegramCompleteRequest) returns (TelegramCompleteResponse);
+  rpc TelegramConsume (TelegramConsumeRequest) returns (TelegramConsumeResponse);
 }
 
 // OTP Auth
@@ -63,12 +64,21 @@ message TelegramVerifyResponse {
 }
 
 message TelegramCompleteRequest {
-  string telegram_id = 1;
-  string phone = 2;
-  string username = 3;
+  string session_id = 1;
+  string telegram_id = 2;
+  string phone = 3;
+  string username = 4;
 }
 
 message TelegramCompleteResponse {
+  string session_id = 1;
+}
+
+message TelegramConsumeRequest {
+  string session_id = 1;
+}
+
+message TelegramConsumeResponse {
   string access_token = 1;
   string refresh_token = 2;
 }
