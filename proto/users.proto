@@ -4,6 +4,8 @@ package users.v1;
 
 service UsersService {
   rpc GetMe (GetMeRequest) returns (GetMeResponse);
+
+  rpc Createuser(CreateUserRequest) returns (CreateUserResponse);
   rpc PatchUser (PatchUserRequest) returns (PatchUserResponse);
 }
 
@@ -13,6 +15,14 @@ message GetMeRequest {
 
 message GetMeResponse {
   User user = 2;
+}
+
+message CreateUserRequest {
+  string id = 1;
+}
+
+message CreateUserResponse {
+  bool ok = 1;
 }
 
 message PatchUserRequest {
