@@ -107,7 +107,7 @@ func (x *UploadRequest) GetResizeHeight() int32 {
 
 type UploadResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -142,9 +142,9 @@ func (*UploadResponse) Descriptor() ([]byte, []int) {
 	return file_media_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *UploadResponse) GetUrl() string {
+func (x *UploadResponse) GetKey() string {
 	if x != nil {
-		return x.Url
+		return x.Key
 	}
 	return ""
 }
@@ -452,7 +452,7 @@ const file_media_proto_rawDesc = "" +
 	"\r_resize_widthB\x10\n" +
 	"\x0e_resize_height\"\"\n" +
 	"\x0eUploadResponse\x12\x10\n" +
-	"\x03url\x18\x01 \x01(\tR\x03url\"\x1e\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\"\x1e\n" +
 	"\n" +
 	"GetRequest\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\"D\n" +
@@ -474,7 +474,7 @@ const file_media_proto_rawDesc = "" +
 	"\x06Upload\x12\x17.media.v1.UploadRequest\x1a\x18.media.v1.UploadResponse\x122\n" +
 	"\x03Get\x12\x14.media.v1.GetRequest\x1a\x15.media.v1.GetResponse\x12;\n" +
 	"\x06Delete\x12\x17.media.v1.DeleteRequest\x1a\x18.media.v1.DeleteResponse\x12V\n" +
-	"\x0fGeneratePreview\x12 .media.v1.GeneratePreviewRequest\x1a!.media.v1.GeneratePreviewResponseB5P\x01Z1github.com/teacinema-dev/proto/gen/go/media;mediab\x06proto3"
+	"\x0fGeneratePreview\x12 .media.v1.GeneratePreviewRequest\x1a!.media.v1.GeneratePreviewResponseB1P\x01Z-github.com/teacinema-dev/proto/v2/media;mediab\x06proto3"
 
 var (
 	file_media_proto_rawDescOnce sync.Once
