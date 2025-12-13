@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 echo "Generating TypeScript protobuf..."
-npx protoc \
+protoc \
   -I ./proto \
   ./proto/*.proto \
   --ts_proto_out=./gen/ts \
