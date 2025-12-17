@@ -4,22 +4,17 @@ package movie.v1;
 
 service MovieService {
   rpc GetAllMovies (GetAllMoviesRequest) returns (GetAllMoviesResponse);
-  rpc GetPopularMovies (GetPopularMoviesRequest) returns (GetPopularMoviesResponse);
   rpc GetMovieById (GetMovieByIdRequest) returns (GetMovieByIdResponse);
   rpc GetMovieBySlug (GetMovieBySlugRequest) returns (GetMovieBySlugResponse);
 }
 
 message GetAllMoviesRequest { 
   string category = 1;
+  bool random = 2;
+  int32 limit = 3;
 }
 
 message GetAllMoviesResponse {
-  repeated Movie movies = 1;
-}
-
-message GetPopularMoviesRequest {}
-
-message GetPopularMoviesResponse {
   repeated Movie movies = 1;
 }
 
