@@ -4,7 +4,7 @@ package refund.v1;
 
 service RefundService {
   rpc CreateRefund(CreateRefundRequest) returns (CreateRefundResponse);
-  rpc HandleRefundWebhook(HandleRefundWebhookRequest) returns (HandleRefundWebhookResponse);
+  rpc ProcessRefundEvent(ProcessRefundEventRequest) returns (ProcessRefundEventResponse);
 }
 
 message CreateRefundRequest {
@@ -16,12 +16,12 @@ message CreateRefundResponse {
   bool ok = 1;
 }
 
-message HandleRefundWebhookRequest {
+message ProcessRefundEventRequest {
   string event = 1;
   string provider_refund_id = 2;
   string status = 3;
 }
 
-message HandleRefundWebhookResponse {
+message ProcessRefundEventResponse {
   bool ok = 1;
 }

@@ -2,35 +2,31 @@ syntax = "proto3";
 
 package movie.v1;
 
+import "google/protobuf/timestamp.proto";
+
 service MovieService {
-  rpc GetAllMovies (GetAllMoviesRequest) returns (GetAllMoviesResponse);
-  rpc GetMovieById (GetMovieByIdRequest) returns (GetMovieByIdResponse);
-  rpc GetMovieBySlug (GetMovieBySlugRequest) returns (GetMovieBySlugResponse);
+  rpc ListMovies (ListMoviesRequest) returns (ListMoviesResponse);
+  rpc GetMovie (GetMovieRequest) returns (GetMovieResponse);
 }
 
-message GetAllMoviesRequest { 
+message ListMoviesRequest {
   string category = 1;
   bool random = 2;
   int32 limit = 3;
 }
 
-message GetAllMoviesResponse {
+message ListMoviesResponse {
   repeated Movie movies = 1;
 }
 
-message GetMovieByIdRequest {
-  string id = 1;
+message GetMovieRequest {
+  oneof key {
+    string id = 1;
+    string slug = 2;
+  }
 }
 
-message GetMovieByIdResponse {
-  MovieDetails movie = 1;
-}
-
-message GetMovieBySlugRequest {
-  string slug = 1;
-}
-
-message GetMovieBySlugResponse {
+message GetMovieResponse {
   MovieDetails movie = 1;
 }
 
@@ -42,7 +38,7 @@ message Movie {
   string banner = 5;
   string rating_age = 6;
   string trailer = 7;
-  string release_date = 8;
+  google.protobuf.Timestamp release_date = 8;
 }
 
 message MovieDetails {
@@ -54,7 +50,7 @@ message MovieDetails {
   string banner = 6;
   string trailer = 7;
   int32 duration = 8;
-  string release_date = 9;
-  string rating_age = 10;
-  string country = 11;
+  string rating_age = 9;
+  string country = 10;
+  google.protobuf.Timestamp release_date = 11;
 }

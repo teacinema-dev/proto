@@ -3,50 +3,51 @@ syntax = "proto3";
 package hall.v1;
 
 service HallService {
-  rpc CreateHall (CreateHallRequest) returns (HallResponse);
-  rpc GetHall (GetHallRequest) returns (HallWithSeatsResponse);
-  rpc ListHallsByTheater (GetHallsRequest) returns (ListHallsResponse);
+  rpc CreateHall (CreateHallRequest) returns (CreateHallResponse);
+
+  rpc GetHall (GetHallRequest) returns (GetHallResponse);
+  rpc ListHallsByTheater (ListHallsRequest) returns (ListHallsResponse);
 }
 
 message CreateHallRequest {
   string theaterId = 1;
   string name = 2;
-  repeated SeatRowConfig layout = 3;
+  repeated RowLayout rows = 3;
 }
 
-message SeatRowConfig {
-  int32 row = 1;
-  int32 columns = 2;
-  string type = 3;
-  int32 price = 4;
+message CreateHallResponse {
+  Hall hall = 1;
 }
 
 message GetHallRequest {
   string id = 1;
 }
 
-message GetHallsRequest {
-  string theaterId = 1;
+message GetHallResponse {
+  Hall hall = 1;
+  repeated Seat seats = 2;
 }
 
-message HallResponse {
-  Hall hall = 1;
+message ListHallsRequest {
+  string theaterId = 1;
 }
 
 message ListHallsResponse {
   repeated Hall halls = 1;
 }
 
-message HallWithSeatsResponse {
-  Hall hall = 1;
-  repeated Seat seats = 2;
-}
-
 message Hall {
   string id = 1;
   string name = 2;
   string theaterId = 3;
-  repeated SeatRowConfig layout = 4; 
+  repeated RowLayout layout = 4; 
+}
+
+message RowLayout {
+  int32 row = 1;
+  int32 columns = 2;
+  string type = 3;
+  int32 price = 4;
 }
 
 message Seat {
