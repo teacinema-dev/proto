@@ -1,6 +1,5 @@
 export interface BookingConfirmedEvent {
-	bookingId: string
-	userId: string
-	paymentId: string
+	email: string
 	amount: number
+	qrCode: string
 }

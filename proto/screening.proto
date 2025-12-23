@@ -8,6 +8,7 @@ service ScreeningService {
   rpc GetScreening (GetScreeningRequest) returns (GetScreeningResponse);
   rpc GetScreenings (GetScreeningsRequest) returns (GetScreeningsResponse);
   rpc GetScreeningsByMovie (GetScreeningsByMovieRequest) returns (GetScreeningsByMovieResponse);
+  rpc GetScreeningsByIds (GetScreeningsByIdsRequest) returns (GetScreeningsByIdsResponse);
 }
 
 // --------- REQUESTS ---------
@@ -31,6 +32,14 @@ message GetScreeningsRequest {
 message GetScreeningsByMovieRequest {
   string movie_id = 1;
   optional string date = 2;
+}
+
+message GetScreeningsByIdsRequest {
+  repeated string ids = 1;
+}
+
+message GetScreeningsByIdsResponse {
+  repeated Screening screenings = 1;
 }
 
 // --------- RESPONSES ---------

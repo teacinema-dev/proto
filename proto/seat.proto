@@ -5,6 +5,7 @@ package seat.v1;
 service SeatService {
   rpc GetSeat (GetSeatRequest) returns (GetSeatsResponse);
   rpc ListSeatsByHall (ListSeatsRequest) returns (ListSeatsResponse);
+  rpc GetSeatsByIds (GetSeatsByIdsRequest) returns (GetSeatsByIdsResponse);
 }
 
 message GetSeatRequest {
@@ -21,6 +22,14 @@ message ListSeatsRequest {
 }
 
 message ListSeatsResponse {
+  repeated Seat seats = 1;
+}
+
+message GetSeatsByIdsRequest {
+  repeated string ids = 1;
+}
+
+message GetSeatsByIdsResponse {
   repeated Seat seats = 1;
 }
 
